@@ -1,0 +1,231 @@
+host: r434.ib.bridges2.psc.edu  job: 50358718  date: Mon Nov  9 01:10:02 EST 2026
+##### hardware
+Thread(s) per core:  1
+Core(s) per socket:  64
+Socket(s):           2
+NUMA node(s):        2
+Model name:          AMD EPYC 7742 64-Core Processor
+CPU MHz:             2245.793
+L1d cache:           32K
+L2 cache:            512K
+L3 cache:            16384K
+NUMA node0 CPU(s):   0-63
+NUMA node1 CPU(s):   64-127
+available: 2 nodes (0-1)
+--
+node 0 size: 128637 MB
+--
+node 1 size: 129002 MB
+--
+node distances:
+              total        used        free      shared  buff/cache   available
+Mem:            251           4         236           0          10         245
+##### pingpong, same socket (cores 0,1)
+pingpong words bytes one_way_us
+pingpong 1 8 0.144
+pingpong 4 32 0.140
+pingpong 16 128 0.458
+pingpong 64 512 0.275
+pingpong 256 2048 0.526
+pingpong 1024 8192 0.856
+pingpong 4096 32768 1.629
+pingpong 16384 131072 5.620
+pingpong 65536 524288 33.857
+pingpong 262144 2097152 121.596
+pingpong 1048576 8388608 568.511
+pingpong 4194304 33554432 2295.317
+allgather n=32000 p=2 us=27.512
+##### pingpong, different sockets
+pingpong words bytes one_way_us
+pingpong 1 8 0.649
+pingpong 4 32 0.814
+pingpong 16 128 1.233
+pingpong 64 512 1.340
+pingpong 256 2048 2.248
+pingpong 1024 8192 4.662
+pingpong 4096 32768 10.480
+pingpong 16384 131072 34.656
+pingpong 65536 524288 85.099
+pingpong 262144 2097152 250.398
+pingpong 1048576 8388608 969.467
+pingpong 4194304 33554432 3609.642
+allgather n=32000 p=2 us=62.899
+##### allgather for mvm, n=32000
+allgather n=32000 p=2 us=26.156
+allgather n=32000 p=4 us=34.760
+allgather n=32000 p=8 us=126.943
+allgather n=32000 p=16 us=186.286
+allgather n=32000 p=32 us=270.822
+allgather n=32000 p=64 us=394.145
+##### mvm n=32000, default placement, p up to 64
+=== np=1 run=1
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 1.011436 sec
+=== np=1 run=2
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 1.002769 sec
+=== np=1 run=3
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 1.000824 sec
+=== np=2 run=1
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.502701 sec
+=== np=2 run=2
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.503589 sec
+=== np=2 run=3
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.504907 sec
+=== np=4 run=1
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.257319 sec
+=== np=4 run=2
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.257814 sec
+=== np=4 run=3
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.256467 sec
+=== np=8 run=1
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.220216 sec
+=== np=8 run=2
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.220736 sec
+=== np=8 run=3
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.218565 sec
+=== np=16 run=1
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.118449 sec
+=== np=16 run=2
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.117050 sec
+=== np=16 run=3
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.117498 sec
+=== np=32 run=1
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.068377 sec
+=== np=32 run=2
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.068268 sec
+=== np=32 run=3
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.068105 sec
+=== np=64 run=1
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.059467 sec
+=== np=64 run=2
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.059406 sec
+=== np=64 run=3
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.059293 sec
+##### mvm n=32000, placement: pack on one socket vs spread across sockets
+=== map=core np=2 run=1
+Parallel matrix vector multiplication time: 0.498411 sec
+=== map=core np=2 run=2
+Parallel matrix vector multiplication time: 0.497490 sec
+=== map=core np=2 run=3
+Parallel matrix vector multiplication time: 0.495891 sec
+=== map=core np=4 run=1
+Parallel matrix vector multiplication time: 0.252580 sec
+=== map=core np=4 run=2
+Parallel matrix vector multiplication time: 0.253290 sec
+=== map=core np=4 run=3
+Parallel matrix vector multiplication time: 0.252791 sec
+=== map=core np=8 run=1
+Parallel matrix vector multiplication time: 0.220332 sec
+=== map=core np=8 run=2
+Parallel matrix vector multiplication time: 0.220227 sec
+=== map=core np=8 run=3
+Parallel matrix vector multiplication time: 0.220378 sec
+=== map=package np=2 run=1
+Parallel matrix vector multiplication time: 0.502742 sec
+=== map=package np=2 run=2
+Parallel matrix vector multiplication time: 0.501488 sec
+=== map=package np=2 run=3
+Parallel matrix vector multiplication time: 0.498824 sec
+=== map=package np=4 run=1
+Parallel matrix vector multiplication time: 0.247861 sec
+=== map=package np=4 run=2
+Parallel matrix vector multiplication time: 0.248942 sec
+=== map=package np=4 run=3
+Parallel matrix vector multiplication time: 0.247937 sec
+=== map=package np=8 run=1
+Parallel matrix vector multiplication time: 0.127552 sec
+=== map=package np=8 run=2
+Parallel matrix vector multiplication time: 0.127338 sec
+=== map=package np=8 run=3
+Parallel matrix vector multiplication time: 0.127580 sec
+=== map=numa np=2 run=1
+Parallel matrix vector multiplication time: 0.501527 sec
+=== map=numa np=2 run=2
+Parallel matrix vector multiplication time: 0.499795 sec
+=== map=numa np=2 run=3
+Parallel matrix vector multiplication time: 0.500996 sec
+=== map=numa np=4 run=1
+Parallel matrix vector multiplication time: 0.248808 sec
+=== map=numa np=4 run=2
+Parallel matrix vector multiplication time: 0.248785 sec
+=== map=numa np=4 run=3
+Parallel matrix vector multiplication time: 0.248347 sec
+=== map=numa np=8 run=1
+Parallel matrix vector multiplication time: 0.127509 sec
+=== map=numa np=8 run=2
+Parallel matrix vector multiplication time: 0.127297 sec
+=== map=numa np=8 run=3
+Parallel matrix vector multiplication time: 0.127191 sec
+##### transpose n=32000 (8 GB per matrix)
+=== p=1
+n=32000 p=1 reps=3 bytes/rank=8192000000 correct
+              pack   alltoall     unpack      total
+avg(s)    7.626101   0.643977   0.902140   9.172218
+min(s)    7.422198   0.440548   0.818133   8.684804
+=== p=2
+n=32000 p=2 reps=3 bytes/rank=4096000000 correct
+              pack   alltoall     unpack      total
+avg(s)    2.467647   0.502733   0.622022   3.588302
+min(s)    2.345022   0.368905   0.543510   3.254811
+=== p=4
+n=32000 p=4 reps=3 bytes/rank=2048000000 correct
+              pack   alltoall     unpack      total
+avg(s)    1.936734   0.491286   0.631909   3.051095
+min(s)    1.828128   0.375607   0.547316   2.747857
+=== p=8
+n=32000 p=8 reps=3 bytes/rank=1024000000 correct
+              pack   alltoall     unpack      total
+avg(s)    1.073267   0.554807   0.658945   2.261956
+min(s)    0.963696   0.435655   0.559411   1.935455
+=== p=16
+n=32000 p=16 reps=3 bytes/rank=512000000 correct
+              pack   alltoall     unpack      total
+avg(s)    0.397748   0.372526   0.380019   1.132636
+min(s)    0.333661   0.309118   0.320723   0.948027
+=== p=32
+n=32000 p=32 reps=3 bytes/rank=256000000 correct
+              pack   alltoall     unpack      total
+avg(s)    0.265401   0.303906   0.257790   0.820086
+min(s)    0.222957   0.208360   0.213788   0.640995
+=== p=64
+n=32000 p=64 reps=3 bytes/rank=128000000 correct
+              pack   alltoall     unpack      total
+avg(s)    0.222411   0.480093   0.222064   0.908860
+min(s)    0.197496   0.185255   0.190439   0.562193
+##### transpose n=16000, placement spread across sockets
+=== map=numa p=2
+n=16000 p=2 reps=5 bytes/rank=1024000000 correct
+              pack   alltoall     unpack      total
+avg(s)    0.350926   0.098958   0.114242   0.562194
+min(s)    0.335164   0.078802   0.103202   0.516001
+=== map=numa p=4
+n=16000 p=4 reps=5 bytes/rank=512000000 correct
+              pack   alltoall     unpack      total
+avg(s)    0.251667   0.086350   0.076936   0.412741
+min(s)    0.240790   0.070736   0.068038   0.379143
+=== map=numa p=8
+n=16000 p=8 reps=5 bytes/rank=256000000 correct
+              pack   alltoall     unpack      total
+avg(s)    0.088820   0.080073   0.078271   0.244802
+min(s)    0.079791   0.069740   0.070706   0.218684
+done

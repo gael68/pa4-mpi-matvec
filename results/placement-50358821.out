@@ -1,0 +1,95 @@
+host: r195.ib.bridges2.psc.edu  job: 50358821  date: Mon Nov  9 01:22:35 EST 2026
+cpus this job may use: 32-46,51
+##### --map-by core
+[r195.ib.bridges2.psc.edu:74946] Rank 0 bound to package[0][core:32]
+[r195.ib.bridges2.psc.edu:74946] Rank 1 bound to package[0][core:33]
+[r195.ib.bridges2.psc.edu:74946] Rank 2 bound to package[0][core:34]
+[r195.ib.bridges2.psc.edu:74946] Rank 3 bound to package[0][core:35]
+[r195.ib.bridges2.psc.edu:74946] Rank 4 bound to package[0][core:36]
+[r195.ib.bridges2.psc.edu:74946] Rank 5 bound to package[0][core:37]
+[r195.ib.bridges2.psc.edu:74946] Rank 6 bound to package[0][core:38]
+[r195.ib.bridges2.psc.edu:74946] Rank 7 bound to package[0][core:39]
+=== map=core np=1 run=1
+Parallel matrix vector multiplication time: 1.013466 sec
+=== map=core np=1 run=2
+Parallel matrix vector multiplication time: 1.034394 sec
+=== map=core np=1 run=3
+Parallel matrix vector multiplication time: 1.033709 sec
+=== map=core np=2 run=1
+Parallel matrix vector multiplication time: 0.524564 sec
+=== map=core np=2 run=2
+Parallel matrix vector multiplication time: 0.514120 sec
+=== map=core np=2 run=3
+Parallel matrix vector multiplication time: 0.531894 sec
+=== map=core np=4 run=1
+Parallel matrix vector multiplication time: 0.284455 sec
+=== map=core np=4 run=2
+Parallel matrix vector multiplication time: 0.273438 sec
+=== map=core np=4 run=3
+Parallel matrix vector multiplication time: 0.274244 sec
+=== map=core np=8 run=1
+Parallel matrix vector multiplication time: 0.220771 sec
+=== map=core np=8 run=2
+Parallel matrix vector multiplication time: 0.223271 sec
+=== map=core np=8 run=3
+Parallel matrix vector multiplication time: 0.224160 sec
+=== transpose map=core p=8
+n=16000 p=8 reps=3 tile=64 bytes/rank=256000000 correct
+              pack   alltoall     unpack      total
+avg(s)    0.175495   0.147305   0.177467   0.497529
+min(s)    0.144036   0.113747   0.145118   0.405125
+##### --map-by l3cache
+[r195.ib.bridges2.psc.edu:75453] Rank 0 bound to package[0][core:32]
+[r195.ib.bridges2.psc.edu:75453] Rank 1 bound to package[0][core:33]
+[r195.ib.bridges2.psc.edu:75453] Rank 2 bound to package[0][core:36]
+[r195.ib.bridges2.psc.edu:75453] Rank 3 bound to package[0][core:37]
+[r195.ib.bridges2.psc.edu:75453] Rank 4 bound to package[0][core:40]
+[r195.ib.bridges2.psc.edu:75453] Rank 5 bound to package[0][core:41]
+[r195.ib.bridges2.psc.edu:75453] Rank 6 bound to package[0][core:44]
+[r195.ib.bridges2.psc.edu:75453] Rank 7 bound to package[0][core:51]
+=== map=l3cache np=1 run=1
+Parallel matrix vector multiplication time: 1.005365 sec
+=== map=l3cache np=1 run=2
+Parallel matrix vector multiplication time: 1.018972 sec
+=== map=l3cache np=1 run=3
+Parallel matrix vector multiplication time: 1.011531 sec
+=== map=l3cache np=2 run=1
+Parallel matrix vector multiplication time: 0.502462 sec
+=== map=l3cache np=2 run=2
+Parallel matrix vector multiplication time: 0.516321 sec
+=== map=l3cache np=2 run=3
+Parallel matrix vector multiplication time: 0.503187 sec
+=== map=l3cache np=4 run=1
+Parallel matrix vector multiplication time: 0.259100 sec
+=== map=l3cache np=4 run=2
+Parallel matrix vector multiplication time: 0.249304 sec
+=== map=l3cache np=4 run=3
+Parallel matrix vector multiplication time: 0.254389 sec
+=== map=l3cache np=8 run=1
+Parallel matrix vector multiplication time: 0.157881 sec
+=== map=l3cache np=8 run=2
+Parallel matrix vector multiplication time: 0.130989 sec
+=== map=l3cache np=8 run=3
+Parallel matrix vector multiplication time: 0.135933 sec
+=== transpose map=l3cache p=8
+n=16000 p=8 reps=3 tile=64 bytes/rank=256000000 correct
+              pack   alltoall     unpack      total
+avg(s)    0.117442   0.105755   0.102218   0.300320
+min(s)    0.098177   0.074366   0.080350   0.247802
+##### accounting for this lab's jobs
+JobID                JobName  Partition  AllocCPUS    Elapsed      State        NodeList 
+------------ --------------- ---------- ---------- ---------- ---------- --------------- 
+50358707       pa3-mergesort  RM-shared         16   00:02:34  COMPLETED            r195 
+50358708           pa4-task1  RM-shared         16   00:00:03     FAILED            r227 
+50358709           pa4-task2  RM-shared         16   00:00:03     FAILED            r303 
+50358710           pa4-task4  RM-shared         16   00:01:42  COMPLETED            r364 
+50358711       pa4-transpose  RM-shared         16   00:00:28  COMPLETED            r367 
+50358714           pa3-extra  RM-shared         64   00:14:32  COMPLETED            r358 
+50358715           pa4-task1  RM-shared         16   00:00:30  COMPLETED            r195 
+50358716           pa4-task2  RM-shared         16   00:00:40  COMPLETED            r227 
+50358718          pa4-extras         RM        128   00:05:11  COMPLETED            r434 
+50358720           pa4-task4  RM-shared         16   00:01:47  COMPLETED            r195 
+50358765            pa4-deep  RM-shared         16   00:02:20  COMPLETED            r195 
+50358766        pa3-evidence  RM-shared         16   00:08:21    RUNNING            r227 
+50358804       pa4-transpose  RM-shared         16   00:01:29  COMPLETED            r195 
+50358821       pa4-placement  RM-shared         16   00:02:01    RUNNING            r195 

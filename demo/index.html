@@ -1,0 +1,498 @@
+<title>PA4 Demo Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: one reading column with a rubric ledger per task; code and figures break out to full column width. */
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --ink: #17202b;
+  --muted: #586374;
+  --line: #d9dde4;
+  --accent: #2448a8;
+  --accent-soft: #e6ecfa;
+  --say: #fff6df;
+  --say-line: #d9a530;
+  --code-bg: #eef1f5;
+  --ok: #1f7a4d;
+  --font-display: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11161d; --surface: #182029; --ink: #e4e8ee; --muted: #9aa5b4; --line: #2b3542;
+    --accent: #8fb0ff; --accent-soft: #1d2a47; --say: #2a2414; --say-line: #c9952a;
+    --code-bg: #0d1218; --ok: #5cc795; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11161d; --surface: #182029; --ink: #e4e8ee; --muted: #9aa5b4; --line: #2b3542;
+  --accent: #8fb0ff; --accent-soft: #1d2a47; --say: #2a2414; --say-line: #c9952a;
+  --code-bg: #0d1218; --ok: #5cc795; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-body);
+  font-size: 16px; line-height: 1.6;
+}
+.wrap {
+  max-width: 860px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 80px;
+  display: flex; flex-direction: column; gap: 56px;
+}
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.85rem; font-weight: 600; }
+h3 { font-size: 1.2rem; font-weight: 600; }
+p { margin: 0; max-width: 68ch; }
+a { color: var(--accent); }
+code, .mono { font-family: var(--font-mono); font-size: 0.88em; }
+:not(pre) > code { background: var(--code-bg); padding: 0.1em 0.35em; border-radius: 4px; }
+.eyebrow { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+header { display: flex; flex-direction: column; gap: 14px; }
+.lede { font-size: 1.1rem; color: var(--muted); }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin-top: 8px; }
+.facts div { background: var(--surface); padding: 10px 14px; min-width: 0; }
+.facts dt { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.facts dd { margin: 0; font-family: var(--font-mono); font-size: 0.85rem; overflow-wrap: anywhere; }
+
+nav.toc { display: flex; flex-wrap: wrap; gap: 8px; }
+nav.toc a { text-decoration: none; font-size: 0.9rem; padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink); }
+nav.toc a:hover, nav.toc a:focus-visible { border-color: var(--accent); color: var(--accent); outline: none; }
+
+section { display: flex; flex-direction: column; gap: 18px; scroll-margin-top: 16px; }
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-bottom: 2px solid var(--ink); padding-bottom: 8px; }
+.pts { font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent); white-space: nowrap; }
+
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; color: var(--muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--font-mono); font-size: 0.85rem; }
+.scroll { overflow-x: auto; min-width: 0; }
+.ledger td:first-child { font-family: var(--font-mono); color: var(--accent); white-space: nowrap; width: 3.5em; }
+
+.say { background: var(--say); border-left: 4px solid var(--say-line); padding: 14px 18px; border-radius: 0 6px 6px 0; display: flex; flex-direction: column; gap: 8px; }
+.say .eyebrow { color: var(--ink); opacity: 0.7; }
+.say p { max-width: none; }
+
+.cmd { position: relative; background: var(--code-bg); border: 1px solid var(--line); border-radius: 6px; min-width: 0; }
+.cmd pre { margin: 0; padding: 12px 84px 12px 14px; overflow-x: auto; font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.5; }
+.cmd button { position: absolute; top: 8px; right: 8px; font: 500 0.75rem var(--font-body); padding: 4px 10px; border-radius: 4px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.cmd button:hover, .cmd button:focus-visible { border-color: var(--accent); color: var(--accent); outline: none; }
+.cmd .label { display: block; padding: 8px 14px 0; font-size: 0.75rem; color: var(--muted); }
+
+pre.out { margin: 0; padding: 12px 14px; background: var(--code-bg); border-radius: 6px; overflow-x: auto; font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.45; color: var(--muted); }
+
+figure { margin: 0; display: flex; flex-direction: column; gap: 6px; }
+figure img { width: 100%; border-radius: 6px; border: 1px solid var(--line); background: #fff; }
+figcaption { font-size: 0.85rem; color: var(--muted); max-width: 68ch; }
+
+.eq { font-family: var(--font-mono); font-size: 0.95rem; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 12px 16px; overflow-x: auto; white-space: nowrap; }
+.eq.big { font-size: 1.05rem; border-color: var(--accent); background: var(--accent-soft); }
+
+details { border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+details + details { margin-top: -10px; }
+summary { cursor: pointer; padding: 10px 14px; font-weight: 500; list-style: none; display: flex; gap: 10px; }
+summary::before { content: "Q"; font-family: var(--font-mono); color: var(--accent); font-weight: 600; }
+summary::-webkit-details-marker { display: none; }
+details[open] summary { border-bottom: 1px solid var(--line); }
+details > div { padding: 12px 14px 14px 38px; display: flex; flex-direction: column; gap: 8px; }
+summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+ul, ol { margin: 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 4px; max-width: 68ch; }
+.ok { color: var(--ok); font-weight: 600; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+.two > * { min-width: 0; }
+footer { color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--line); padding-top: 16px; }
+@media (max-width: 520px) { h1 { font-size: 2rem; } h2 { font-size: 1.5rem; } }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+
+<div class="wrap">
+
+<header>
+  <span class="eyebrow">CS 4475 · Fall 2026 · Programming Assignment 4</span>
+  <h1>PA4 demo guide</h1>
+  <p class="lede">What to show and what to say for each rubric item, for the MPI matrix-vector multiply and the distributed transpose. Every number below comes from your Bridges-2 runs on November 9, 2026.</p>
+  <dl class="facts">
+    <div><dt>Repo</dt><dd><a href="https://github.com/gael68/pa4-mpi-matvec">gael68/pa4-mpi-matvec</a></dd></div>
+    <div><dt>Machine</dt><dd>Bridges-2 RM, 2 × AMD EPYC 7742</dd></div>
+    <div><dt>MPI</dt><dd>Open MPI 5.0.8, gcc 13.3.1, -O2</dd></div>
+    <div><dt>Partition</dt><dd>RM-shared, 16 cores</dd></div>
+  </dl>
+  <nav class="toc" aria-label="Sections">
+    <a href="#live">Live demo</a><a href="#t1">Task 1</a><a href="#t2">Task 2</a><a href="#t3">Task 3</a><a href="#t4">Task 4</a><a href="#t5">Task 5</a><a href="#ec">Extra credit</a><a href="#numbers">Numbers</a>
+  </nav>
+</header>
+
+<section id="live">
+  <div class="sec-head"><h2>Running it live</h2><span class="pts">your Mac</span></div>
+  <p>Your Bridges-2 access is gone by demo time, so run the code on your laptop. Open MPI is installed with Homebrew. The Mac gives correct results but laptop timings, so for timings show the Bridges-2 output files in <code>results/</code>.</p>
+  <div class="cmd"><span class="label">Build and run Task 1 at a few sizes</span><pre>cd ~/workplace/osLabs/lab4/pa4
+make mvm
+for p in 1 2 4 8; do mpirun --oversubscribe -n $p ./mvm 1024; done</pre><button type="button">Copy</button></div>
+  <div class="cmd"><span class="label">Extra credit: print an 8 × 8 transpose, then time a bigger one</span><pre>mpicc -O2 -o transpose transpose.c
+mpirun --oversubscribe -n 4 ./transpose 8 1
+mpirun --oversubscribe -n 4 ./transpose 4000 3</pre><button type="button">Copy</button></div>
+  <div class="cmd"><span class="label">Rebuild every graph and the spreadsheet from the raw outputs</span><pre>python3 analyze.py</pre><button type="button">Copy</button></div>
+  <p><code>--oversubscribe</code> lets Open MPI start more ranks than it counts as free cores on the laptop. Bridges-2 doesn't need it.</p>
+</section>
+
+<section id="t1">
+  <div class="sec-head"><h2>Task 1 · The missing communication</h2><span class="pts">10 pts</span></div>
+  <div class="scroll"><table class="ledger">
+    <tr><td>4</td><td>Correct MPI communication in <code>mvm.c</code>: one line, <code>mvm.c:26</code></td></tr>
+    <tr><td>3</td><td>Small sizes 8, 32, 1024 on 1, 2, 4, 8 processes: table below</td></tr>
+    <tr><td>3</td><td>n = 32000 on 1, 2, 4, 8 processes: last four rows</td></tr>
+  </table></div>
+
+  <div class="cmd"><span class="label">mvm.c:26</span><pre>MPI_Allgather(x, nlocal, MPI_DOUBLE, xbuf, nlocal, MPI_DOUBLE, comm);</pre><button type="button">Copy</button></div>
+
+  <div class="say">
+    <span class="eyebrow">Say this</span>
+    <p>The matrix is split by rows: each process owns <code>n/p</code> full rows of A and the matching <code>n/p</code> entries of x. To compute its part of y, a process multiplies each of its rows by <em>all</em> of x, but it only holds a slice. So before the local loop, every process needs every other process's slice. That is exactly <code>MPI_Allgather</code>: each process contributes <code>nlocal</code> doubles and gets back the whole vector in <code>xbuf</code>, in rank order, which is also the order of the rows.</p>
+  </div>
+
+  <p><strong>How I checked it.</strong> The driver recomputes y sequentially on rank 0 and prints a <code>discrepancy</code> line for any element that differs. My job script counts those lines. As an independent check, the driver's A and x give a closed form for the last element, <code>y[n−1] = 2(n−1)·n(n−1)/2 + (n−1)n(2n−1)/6</code>, and every run matches it exactly.</p>
+
+  <div class="scroll"><table>
+    <thead><tr><th class="num">n</th><th class="num">p</th><th class="num">discrepancies</th><th class="num">y[n−1]</th><th>closed form</th><th class="num">time (s)</th></tr></thead>
+    <tbody>
+      <tr><td class="num">8</td><td class="num">1</td><td class="num">0</td><td class="num">532</td><td class="ok">match</td><td class="num">0.000005</td></tr>
+      <tr><td class="num">8</td><td class="num">2</td><td class="num">0</td><td class="num">532</td><td class="ok">match</td><td class="num">0.000019</td></tr>
+      <tr><td class="num">8</td><td class="num">4</td><td class="num">0</td><td class="num">532</td><td class="ok">match</td><td class="num">0.000032</td></tr>
+      <tr><td class="num">8</td><td class="num">8</td><td class="num">0</td><td class="num">532</td><td class="ok">match</td><td class="num">0.000083</td></tr>
+      <tr><td class="num">32</td><td class="num">1</td><td class="num">0</td><td class="num">41168</td><td class="ok">match</td><td class="num">0.000004</td></tr>
+      <tr><td class="num">32</td><td class="num">2</td><td class="num">0</td><td class="num">41168</td><td class="ok">match</td><td class="num">0.000037</td></tr>
+      <tr><td class="num">32</td><td class="num">4</td><td class="num">0</td><td class="num">41168</td><td class="ok">match</td><td class="num">0.000015</td></tr>
+      <tr><td class="num">32</td><td class="num">8</td><td class="num">0</td><td class="num">41168</td><td class="ok">match</td><td class="num">0.000034</td></tr>
+      <tr><td class="num">1024</td><td class="num">1</td><td class="num">0</td><td class="num">1429035520</td><td class="ok">match</td><td class="num">0.001029</td></tr>
+      <tr><td class="num">1024</td><td class="num">2</td><td class="num">0</td><td class="num">1429035520</td><td class="ok">match</td><td class="num">0.000555</td></tr>
+      <tr><td class="num">1024</td><td class="num">4</td><td class="num">0</td><td class="num">1429035520</td><td class="ok">match</td><td class="num">0.000283</td></tr>
+      <tr><td class="num">1024</td><td class="num">8</td><td class="num">0</td><td class="num">1429035520</td><td class="ok">match</td><td class="num">0.000204</td></tr>
+      <tr><td class="num">32000</td><td class="num">1</td><td class="num">0</td><td class="num">43688106704000</td><td class="ok">match</td><td class="num">1.029128</td></tr>
+      <tr><td class="num">32000</td><td class="num">2</td><td class="num">0</td><td class="num">43688106704000</td><td class="ok">match</td><td class="num">0.511679</td></tr>
+      <tr><td class="num">32000</td><td class="num">4</td><td class="num">0</td><td class="num">43688106704000</td><td class="ok">match</td><td class="num">0.272106</td></tr>
+      <tr><td class="num">32000</td><td class="num">8</td><td class="num">0</td><td class="num">43688106704000</td><td class="ok">match</td><td class="num">0.243680</td></tr>
+    </tbody>
+  </table></div>
+  <p class="mono" style="font-size:.8rem;color:var(--muted)">Source: results/task1-50358715.out · job script task1.sbatch</p>
+
+  <details><summary>Why Allgather and not Gather + Bcast, or Bcast alone?</summary><div>
+    <p>Each process starts with a different piece and every process needs all pieces. Bcast sends one process's data to everyone, which doesn't fit. Gather to rank 0 followed by Bcast works but takes two collectives and funnels everything through rank 0. Allgather does it in one call, and the library can use recursive doubling (log p steps) or a ring.</p>
+  </div></details>
+  <details><summary>Why are small-n times faster at p = 1 than p = 8?</summary><div>
+    <p>At n = 8 there are only 64 multiply-adds. The fixed cost of an MPI collective (microseconds) is far larger than the work, so adding processes only adds overhead. Parallelism pays off only when the work per process outweighs that overhead.</p>
+  </div></details>
+  <details><summary>What if n isn't divisible by p?</summary><div>
+    <p>The driver assumes it is (<code>nlocal = n/numtasks</code>). Otherwise the last rows are never assigned. The fix is <code>MPI_Scatterv</code>/<code>MPI_Allgatherv</code> with per-rank counts and displacements.</p>
+  </div></details>
+  <details><summary>Why is the floating-point comparison exact?</summary><div>
+    <p>All inputs are small integers, and each row is summed in the same order (j = 0…n−1) by the parallel code and by the check. The largest value, about 4.4 × 10<sup>13</sup>, is below 2<sup>53</sup>, so every partial sum is exact in a double.</p>
+  </div></details>
+</section>
+
+<section id="t2">
+  <div class="sec-head"><h2>Task 2 · Sequential complexity</h2><span class="pts">10 pts</span></div>
+  <div class="scroll"><table class="ledger">
+    <tr><td>4</td><td>Theoretical analysis: Θ(n²)</td></tr>
+    <tr><td>3</td><td>Times for n = 1000 … 32000 with one task: table</td></tr>
+    <tr><td>3</td><td>Graph of time vs n, plus a discussion of deviations</td></tr>
+  </table></div>
+
+  <div class="say">
+    <span class="eyebrow">Say this</span>
+    <p>For each of the n rows we do n multiply-adds, so the work is n² multiply-adds, 2n² flops. We also read all n² matrix entries exactly once and never reuse them. The model is <code>T₁(n) = t_c · n²</code>. Doubling n should multiply the time by 4, and it does: the ratios are 4.05, 4.17, 3.93, 3.98, 3.96. Time divided by n² stays at about 1.0 ns from n = 1000 up, so the fitted constant is <code>t_c = 1.006 ns</code>.</p>
+  </div>
+
+  <figure><img src="figures/task2_time_vs_n.png" alt="Left: measured time versus n follows the t_c n squared curve. Right: time per element is about 1 ns for n of 2000 and above, higher at very small n."><figcaption>Left: the graph the handout asks for. Right: time ÷ n², which makes deviations visible. Data: task2-50358716.out (5 runs per size) and a finer sweep in deep-50358765.out.</figcaption></figure>
+
+  <div class="scroll"><table>
+    <thead><tr><th class="num">n</th><th class="num">avg (s)</th><th class="num">min (s)</th><th class="num">avg / n² (ns)</th><th class="num">ratio to previous</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1000</td><td class="num">0.000985</td><td class="num">0.000963</td><td class="num">0.985</td><td class="num">–</td></tr>
+      <tr><td class="num">2000</td><td class="num">0.003992</td><td class="num">0.003949</td><td class="num">0.998</td><td class="num">4.05</td></tr>
+      <tr><td class="num">4000</td><td class="num">0.016655</td><td class="num">0.015803</td><td class="num">1.041</td><td class="num">4.17</td></tr>
+      <tr><td class="num">8000</td><td class="num">0.065428</td><td class="num">0.063374</td><td class="num">1.022</td><td class="num">3.93</td></tr>
+      <tr><td class="num">16000</td><td class="num">0.260382</td><td class="num">0.251852</td><td class="num">1.017</td><td class="num">3.98</td></tr>
+      <tr><td class="num">32000</td><td class="num">1.030061</td><td class="num">1.028398</td><td class="num">1.006</td><td class="num">3.96</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Deviations, and what causes them</h3>
+  <ul>
+    <li><strong>The algorithm is limited by memory bandwidth, not by arithmetic.</strong> 1 ns per element means 8 bytes per ns, about 8 GB/s, which is roughly what one EPYC core can stream from DRAM. The core could do several multiply-adds in that time, so <code>t_c</code> is really the cost of fetching one matrix entry.</li>
+    <li><strong>Small n costs more per element</strong> (1.36 ns at n = 250). <code>MatrixVectorMultiply</code> has fixed costs: <code>malloc</code> of <code>xbuf</code>, the <code>MPI_Allgather</code> call (about 3 µs even at p = 1) and the timer. At n = 250 that overhead is a visible share of a 0.08 ms run.</li>
+    <li><strong>A small bump where A outgrows the 16 MB L3</strong> (n ≈ 1450). Just below that, A is still partly in cache from the scatter; above it, every access goes to DRAM.</li>
+    <li><strong>Run-to-run variation</strong> is under 3% (stdev ≤ 0.006 s at n = 16000).</li>
+  </ul>
+
+  <details><summary>Why time only one task through mpirun instead of a plain sequential program?</summary><div>
+    <p>The handout asks for the mvm program with one task. With p = 1 the Allgather is a local copy, so this is the sequential algorithm plus a few microseconds of MPI overhead. It's also the T₁ used for the speedups in Task 5.</p>
+  </div></details>
+  <details><summary>Why is the graph a parabola and not a straight line?</summary><div>
+    <p>The x-axis is n, the matrix dimension, but the work grows with n², the number of matrix entries. Plotted against n² it would be a straight line.</p>
+  </div></details>
+</section>
+
+<section id="t3">
+  <div class="sec-head"><h2>Task 3 · Parallel runtime model</h2><span class="pts">10 pts</span></div>
+  <div class="scroll"><table class="ledger">
+    <tr><td>4</td><td>A model with both computation and communication</td></tr>
+    <tr><td>3</td><td>Expressed in t_s, t_w, p and n</td></tr>
+    <tr><td>3</td><td>Each part derived and explained</td></tr>
+  </table></div>
+
+  <p>Only <code>MatrixVectorMultiply</code> is modelled; the driver's scatter, gather and check are excluded, as the handout says. That is also exactly the span the driver's timer covers.</p>
+
+  <h3>1. Computation</h3>
+  <p>Each process owns <code>n/p</code> rows of length n and does one multiply-add per entry. All processes work at the same time, so:</p>
+  <div class="eq">T_comp = t_c · n · (n/p) = t_c · n² / p</div>
+
+  <h3>2. Communication: the allgather</h3>
+  <p>Every process contributes <code>m = n/p</code> words and receives the other <code>(p−1)·n/p</code>. With recursive doubling (hypercube allgather) there are <code>log₂ p</code> steps. In step i each process exchanges the 2<sup>i−1</sup>·n/p words it has collected so far:</p>
+  <div class="eq">T_comm = Σ_{i=1}^{log p} ( t_s + t_w · 2^{i−1} · n/p ) = t_s · log₂ p + t_w · n · (p−1)/p</div>
+  <p>The <code>t_s</code> term counts message startups (one per step). The <code>t_w</code> term counts words moved: almost all of x, n(p−1)/p ≈ n, whatever p is. A ring allgather moves the same words but pays <code>(p−1) t_s</code> startups.</p>
+
+  <h3>3. Total, speedup, efficiency</h3>
+  <div class="eq big">T_p = t_c · n²/p  +  t_s · log₂ p  +  t_w · n · (p−1)/p</div>
+  <div class="eq">S = T₁ / T_p = t_c n² / T_p          E = S / p</div>
+  <ul>
+    <li><strong>Overhead.</strong> <code>T_o = p·T_p − T₁ = t_s · p log p + t_w · n(p−1)</code>.</li>
+    <li><strong>Cost-optimal</strong> while p·T_p = Θ(n²), which holds for p = O(n).</li>
+    <li><strong>Isoefficiency.</strong> Keeping E constant needs t_c n² ∝ t_w n p, so n ∝ p and the work W = n² must grow as Θ(p²).</li>
+  </ul>
+
+  <h3>4. Parameters measured on Bridges-2</h3>
+  <div class="scroll"><table>
+    <thead><tr><th>parameter</th><th class="num">value</th><th>how</th></tr></thead>
+    <tbody>
+      <tr><td>t_c</td><td class="num">1.006 ns</td><td>Task 2, T(32000) / 32000²</td></tr>
+      <tr><td>t_s (same socket)</td><td class="num">0.144 µs</td><td>ping-pong, 8-byte message (commbench.c)</td></tr>
+      <tr><td>t_w (same socket)</td><td class="num">0.550 ns / word</td><td>ping-pong slope for messages ≥ 512 KB</td></tr>
+      <tr><td>t_s, t_w (across sockets)</td><td class="num">0.649 µs, 0.853 ns</td><td>same test, ranks on different sockets</td></tr>
+    </tbody>
+  </table></div>
+  <figure><img src="figures/pingpong.png" alt="Log-log plot of one-way message time versus size for two ranks on the same and on different sockets, with linear fits."><figcaption>One-way time t_s + t_w·m between two ranks. The flat left end is t_s; the slope on the right is t_w.</figcaption></figure>
+
+  <div class="say">
+    <span class="eyebrow">Say this</span>
+    <p>Plugging in n = 32000 and p = 8: computation is 1.006 ns × 32000² / 8 = 129 ms. Communication is 0.144 µs × 3 + 0.55 ns × 28000 ≈ 16 µs. Communication is about 0.01% of the total, so the model predicts nearly perfect speedup. The algorithm moves O(n) words but does O(n²/p) work, so for large n the computation dominates.</p>
+  </div>
+
+  <details><summary>Your measured allgather is slower than the model. Why?</summary><div>
+    <p>Inside mvm the slowest rank's allgather takes 0.2–0.8 ms at n = 32000, against about 16 µs predicted. Most of that is waiting, not moving data: the allgather is the first synchronizing call after the scatter, so ranks that arrive early wait for rank 0, which arrives last. Called back-to-back on its own (commbench), the same allgather takes 127 µs at p = 8. That is still more than the two-rank ping-pong predicts, because eight ranks copy through shared memory at once. Either way it's under 0.5% of the runtime, so the conclusion stands.</p>
+  </div></details>
+  <details><summary>What's the Big-O of the parallel algorithm?</summary><div>
+    <p>Θ(n²/p + log p + n). It reduces to Θ(n²/p) when n ≫ p.</p>
+  </div></details>
+</section>
+
+<section id="t4">
+  <div class="sec-head"><h2>Task 4 · Batch job</h2><span class="pts">10 pts</span></div>
+  <div class="scroll"><table class="ledger">
+    <tr><td>4</td><td>Correct batch script for 1, 2, 4, 8 processes, n = 32000: <code>mpi_submit</code></td></tr>
+    <tr><td>3</td><td>Script and output file: <code>mpi_submit</code> and <code>results/task4-50358720.out</code></td></tr>
+    <tr><td>3</td><td>Results verified correct: every run prints the exact y[31999] and no discrepancies</td></tr>
+  </table></div>
+
+  <div class="cmd"><span class="label">Submit it (on Bridges-2, from the directory with mvm built)</span><pre>sbatch mpi_submit
+squeue -u $USER</pre><button type="button">Copy</button></div>
+
+  <p><strong>What I changed from the provided <code>mpi_submit</code>, and why:</strong></p>
+  <div class="scroll"><table>
+    <thead><tr><th>change</th><th>why</th></tr></thead>
+    <tbody>
+      <tr><td><code>-p RM-shared</code>, 16 tasks per node</td><td>At p = 1, rank 0 holds the full A (8.2 GB) plus its scattered copy (8.2 GB). RM-shared gives about 2 GB per core, so 8 cores is not enough memory; 16 cores gives 32 GB. It's also 8× cheaper than a whole RM node.</td></tr>
+      <tr><td><code>cd "$SLURM_SUBMIT_DIR"</code></td><td>The original pointed at the TA's home directory.</td></tr>
+      <tr><td>5 runs per process count</td><td>Averages out noise; the stdev at p = 8 is 0.006 s.</td></tr>
+      <tr><td><code>set -x</code> after <code>module load</code></td><td>Before it, the module system's trace adds hundreds of lines to the output file.</td></tr>
+      <tr><td><code>-o task4-%j.out</code></td><td>A named output file with the job ID.</td></tr>
+    </tbody>
+  </table></div>
+
+  <pre class="out">+ mpirun -n 8 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.230235 sec</pre>
+  <p>43688106704000 is the exact closed-form value, and the file contains no <code>discrepancy</code> lines: <code>grep -c discrepancy results/task4-*.out</code> prints 0.</p>
+</section>
+
+<section id="t5">
+  <div class="sec-head"><h2>Task 5 · Speedup</h2><span class="pts">10 pts</span></div>
+  <div class="scroll"><table class="ledger">
+    <tr><td>4</td><td>Speedup graph with linear speedup on the same axes</td></tr>
+    <tr><td>3</td><td>Compared with the Task 3 model</td></tr>
+    <tr><td>3</td><td>Trends and their explanation</td></tr>
+  </table></div>
+
+  <div class="scroll"><table>
+    <thead><tr><th class="num">p</th><th class="num">avg (s)</th><th class="num">min (s)</th><th class="num">speedup</th><th class="num">efficiency</th><th class="num">Task 3 model</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td class="num">1.042269</td><td class="num">1.037225</td><td class="num">1.00</td><td class="num">1.00</td><td class="num">1.00</td></tr>
+      <tr><td class="num">2</td><td class="num">0.516359</td><td class="num">0.513244</td><td class="num">2.02</td><td class="num">1.01</td><td class="num">2.00</td></tr>
+      <tr><td class="num">4</td><td class="num">0.278159</td><td class="num">0.272366</td><td class="num">3.75</td><td class="num">0.94</td><td class="num">4.00</td></tr>
+      <tr><td class="num">8</td><td class="num">0.240932</td><td class="num">0.232616</td><td class="num">4.33</td><td class="num">0.54</td><td class="num">8.00</td></tr>
+    </tbody>
+  </table></div>
+
+  <figure><img src="figures/task5_speedup.png" alt="Speedup versus processes: measured speedup follows linear to p equals 4 then flattens to 4.3 at p equals 8; ranks spread across sockets reach 7.9."><figcaption>Green: the graded runs. Blue dotted: the Task 3 model. Orange: the same model with compute capped by the memory bandwidth of one CCD. Red: the same program with ranks spread across both sockets of an exclusive node.</figcaption></figure>
+
+  <div class="say">
+    <span class="eyebrow">Say this</span>
+    <p>Up to p = 4 the speedup is almost linear, as the model predicts, because communication is negligible. At p = 8 it flattens to 4.3. The model doesn't predict that, and communication isn't the cause: I timed the allgather separately and it's under 0.5% of the time. The cause is memory bandwidth. mpirun placed all 8 ranks on cores 32–39, which on an EPYC 7742 is one 8-core chiplet (CCD). The chiplet's link to memory tops out around 37 GB/s, and 8 ranks streaming A need about 64 GB/s. When I ran the same program with the ranks spread across sockets, p = 8 reached 7.9×.</p>
+  </div>
+
+  <figure><img src="figures/placement_bandwidth.png" alt="Left: bandwidth packed on neighbouring cores flattens at about 37 GB/s; spread across sockets keeps rising to 64 GB/s. Right: on a full node the speedup continues past p equals 8, reaching about 17 at 64."><figcaption>Left: bytes of A streamed per second. Packed ranks hit one chiplet's ceiling; spread ranks don't. Right: on a full node, speedup keeps growing whenever new ranks land on a fresh chiplet.</figcaption></figure>
+
+  <figure><img src="figures/mvm_breakdown.png" alt="Stacked bars of compute and allgather time. At n equals 1000 communication is 6 to 18 percent; at n equals 32000 it is under half a percent."><figcaption>Instrumented copy of mvm.c (mvm_timed.c). Communication matters at n = 1000 and vanishes at n = 32000, which is the isoefficiency argument from Task 3 in action.</figcaption></figure>
+
+  <h3>The refined model</h3>
+  <p>The model treats t_c as a constant, but t_c is really a bandwidth cost: 8 bytes per element. When p ranks share one memory link of bandwidth B, the computation can't run faster than the link can deliver:</p>
+  <div class="eq">T_comp = n² · max( t_c / p ,  8 bytes / B ),   B ≈ 37.2 GB/s for one CCD</div>
+  <p>This predicts 4.68× at p = 8, against 4.33× measured.</p>
+
+  <h3>Proof: same 16 cores, different placement</h3>
+  <p>To rule out everything except placement, I reran the program in the same kind of 16-core RM-shared allocation, changing only how mpirun maps the ranks. The job got cores 32–46 and 51. With the default <code>--map-by core</code>, the 8 ranks fill cores 32–39 (one CCD). With <code>--map-by l3cache</code> they go round-robin over the 4-core L3 clusters (cores 32, 33, 36, 37, 40, 41, 44, 51), so each cluster's memory path carries only two ranks.</p>
+  <div class="scroll"><table>
+    <thead><tr><th class="num">p</th><th class="num">--map-by core</th><th class="num">speedup</th><th class="num">--map-by l3cache</th><th class="num">speedup</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td class="num">1.0272 s</td><td class="num">1.00</td><td class="num">1.0120 s</td><td class="num">1.00</td></tr>
+      <tr><td class="num">2</td><td class="num">0.5235 s</td><td class="num">1.96</td><td class="num">0.5073 s</td><td class="num">1.99</td></tr>
+      <tr><td class="num">4</td><td class="num">0.2774 s</td><td class="num">3.70</td><td class="num">0.2543 s</td><td class="num">3.98</td></tr>
+      <tr><td class="num">8</td><td class="num">0.2227 s</td><td class="num">4.61</td><td class="num">0.1416 s</td><td class="num">7.15</td></tr>
+    </tbody>
+  </table></div>
+  <p class="mono" style="font-size:.8rem;color:var(--muted)">Source: results/placement-50358821.out · job script placement.sbatch · 3 runs each</p>
+  <div class="cmd"><span class="label">The one-flag fix (inside a Bridges-2 job)</span><pre>mpirun -n 8 --map-by l3cache --bind-to core ./mvm 32000</pre><button type="button">Copy</button></div>
+  <p>The transpose benefits too: at p = 8 it dropped from 0.498 s to 0.300 s with the same flag.</p>
+
+  <details><summary>Is the 2.02× at p = 2 superlinear?</summary><div>
+    <p>Barely, and within noise. It can happen when each rank's share fits better in its own cache (L2 is private per core), but at n = 32000 the halves are still 4 GB each, so it's mostly measurement variation.</p>
+  </div></details>
+  <details><summary>How would you get closer to linear speedup?</summary><div>
+    <p>Spread the ranks so they don't share one memory path. I measured this: in the same 16-core allocation, <code>--map-by l3cache</code> takes p = 8 from 4.61× to 7.15×. On a whole node, spreading across sockets gives 7.9×. More nodes would also help, since every node brings its own memory bandwidth. Communication is not the bottleneck at this size.</p>
+  </div></details>
+  <details><summary>What's Amdahl / Gustafson here?</summary><div>
+    <p>There is almost no serial fraction inside MatrixVectorMultiply, so Amdahl isn't what limits us; a shared hardware resource is. Following Gustafson, growing n with p keeps the efficiency high, because per-process work grows as n²/p while communication grows only as n.</p>
+  </div></details>
+</section>
+
+<section id="ec">
+  <div class="sec-head"><h2>Extra credit · Distributed transpose</h2><span class="pts">+25 pts</span></div>
+  <div class="scroll"><table class="ledger">
+    <tr><td>5</td><td>MPI transpose, 1-D decomposition, each process initializes its own rows: <code>transpose.c</code></td></tr>
+    <tr><td>5</td><td>Efficient collective: <code>MPI_Alltoall</code>, <code>transpose.c:90</code></td></tr>
+    <tr><td>5</td><td>Model with local data movement and network communication</td></tr>
+    <tr><td>5</td><td>Timed for 1, 2, 4, 8 processes on a large matrix: table</td></tr>
+    <tr><td>5</td><td>Results discussed against the model</td></tr>
+  </table></div>
+
+  <h3>The algorithm, in three phases</h3>
+  <p>Each of the p processes owns <code>b = n/p</code> consecutive rows of A (an n × n matrix of doubles) and builds its own rows from the global indices: <code>A[i][j] = i·n + j</code>. Think of its rows as p blocks of b × b. Block k of process r belongs, transposed, to process k.</p>
+  <ol>
+    <li><strong>Local transpose (pack), <code>transpose.c:79–86</code>.</strong> Transpose each b × b block into a send buffer, block k at offset k·b². The loop is tiled 64 × 64 so the column-order writes stay in cache.</li>
+    <li><strong>Exchange, <code>transpose.c:90</code>.</strong> <code>MPI_Alltoall</code> sends block k to process k and receives one block from everyone. Every process sends a different block to every other process, which is exactly what all-to-all personalized communication does.</li>
+    <li><strong>Unpack, <code>transpose.c:93–98</code>.</strong> Received block k becomes columns k·b … (k+1)·b−1 of the local rows of Aᵀ, one <code>memcpy</code> per row.</li>
+  </ol>
+  <p>Then <code>transpose.c:112–117</code> checks every element: <code>B[i][j] == A[j][i]</code>. It prints "correct" or "FAILED", and for n ≤ 8 it prints the result as well.</p>
+
+  <pre class="out">n=8 p=1 reps=1 tile=64 bytes/rank=512 correct
+B (rank 0 rows):
+   0   8  16  24  32  40  48  56
+   1   9  17  25  33  41  49  57
+   ...</pre>
+
+  <h3>Model</h3>
+  <div class="eq">local pack:     t_m · n²/p          (every local element moved once, strided writes)</div>
+  <div class="eq">MPI_Alltoall:   (p−1) · ( t_s + t_w · n²/p² )   (pairwise exchange: one b×b block to each other rank)</div>
+  <div class="eq">unpack:         t_u · n²/p          (contiguous copies, t_u &lt; t_m)</div>
+  <div class="eq big">T_p = (t_m + t_u) · n²/p  +  (p−1) · t_s  +  t_w · n² (p−1)/p²</div>
+  <p>Unlike mvm, communication and computation are the same order here. Both scale as n²/p, so the transpose has no compute-heavy term to hide communication behind: whatever is moved locally also crosses the network. Expected speedup is at most linear, and lower whenever t_w is large compared with t_m.</p>
+
+  <h3>Results (n = 16000, RM-shared, 5 reps each, slowest rank)</h3>
+  <div class="scroll"><table>
+    <thead><tr><th class="num">p</th><th class="num">pack (s)</th><th class="num">alltoall (s)</th><th class="num">unpack (s)</th><th class="num">total (s)</th><th class="num">speedup</th><th class="num">untiled total</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td class="num">0.9136</td><td class="num">0.1679</td><td class="num">0.2486</td><td class="num">1.3301</td><td class="num">1.00</td><td class="num">1.5264</td></tr>
+      <tr><td class="num">2</td><td class="num">0.2963</td><td class="num">0.1323</td><td class="num">0.1727</td><td class="num">0.5999</td><td class="num">2.22</td><td class="num">0.8224</td></tr>
+      <tr><td class="num">4</td><td class="num">0.2340</td><td class="num">0.1284</td><td class="num">0.1738</td><td class="num">0.5336</td><td class="num">2.49</td><td class="num">0.8184</td></tr>
+      <tr><td class="num">8</td><td class="num">0.1701</td><td class="num">0.1386</td><td class="num">0.1672</td><td class="num">0.4730</td><td class="num">2.81</td><td class="num">0.5066</td></tr>
+    </tbody>
+  </table></div>
+  <p class="mono" style="font-size:.8rem;color:var(--muted)">Source: results/transpose-50358804.out · job script transpose.sbatch · each matrix is 2 GB</p>
+
+  <figure><img src="figures/transpose_phases.png" alt="Stacked bars of pack, alltoall and unpack time for 1, 2, 4 and 8 processes, untiled and tiled. Pack shrinks with p; alltoall and unpack stay roughly constant."><figcaption>Pack shrinks as p grows. Alltoall and unpack barely change.</figcaption></figure>
+  <figure><img src="figures/transpose_speedup.png" alt="Left: transpose speedup reaches about 2.8 at 8 processes. Right: pack time per element versus tile size; tiling helps at p equals 1 but makes no difference at p equals 8."><figcaption>Left: speedup. Right: tile size matters at p = 1 (best at 32, 2.8 ns/element) and not at p = 8, where memory bandwidth is the limit.</figcaption></figure>
+
+  <div class="say">
+    <span class="eyebrow">Say this</span>
+    <p>The pack phase behaves like the model's t_m·n²/p term: it falls from 0.91 s to 0.17 s. The alltoall doesn't. The model, with t_w from ping-pong, predicts 7 × (0.14 µs + 0.55 ns × 4 M words) ≈ 15 ms at p = 8, but I measured 139 ms. The ping-pong t_w was measured with one pair of ranks alone. In an alltoall all 8 ranks copy at the same time through shared memory on one chiplet, so they share the same ~37 GB/s link I found in Task 5. The total traffic is 8n²(p−1)/p ≈ 1.8 GB, copied twice (into and out of the shared-memory buffer): about 3.6 GB ÷ 37 GB/s ≈ 97 ms, close to what I measured. So on one node the effective t_w grows with p, and the transpose, which moves as much data as it computes on, tops out at about 2.8×. On a full node with n = 32000, where new ranks land on fresh chiplets, it reached 8.1× at 16 processes.</p>
+  </div>
+
+  <details><summary>Why MPI_Alltoall and not Send/Recv or Alltoallv?</summary><div>
+    <p>The pattern is all-to-all personalized: every process has a distinct block for every other process. MPI_Alltoall states that in one call and lets the library choose the algorithm (pairwise exchange for large messages, Bruck for small ones). Hand-written Send/Recv would serialize or risk deadlock. Alltoallv is only needed when block sizes differ, for example when p doesn't divide n.</p>
+  </div></details>
+  <details><summary>Why do you still need a local transpose after the Alltoall?</summary><div>
+    <p>The Alltoall only moves blocks between processes; each b × b block arrives in its original orientation. Element (i, j) of a block has to become (j, i), and that is the local transpose. I do it before sending, so the receiver only copies rows.</p>
+  </div></details>
+  <details><summary>Why does tiling help?</summary><div>
+    <p>Reading a row of A is sequential, but writing it transposed jumps b doubles each step, touching a new cache line and often a new page. An untiled loop touches b lines per row and evicts them before the next row reuses them. A 64 × 64 tile touches only 64 lines, which stay in L1/L2 until all 8 doubles of each line are written. It cut pack time 19% at p = 1 (1.125 s → 0.914 s).</p>
+  </div></details>
+  <details><summary>How much memory does it use?</summary><div>
+    <p>Four n²/p arrays per rank: A, the send buffer, the receive buffer and B. At n = 16000 and p = 1 that's 8 GB, which fits the 32 GB a 16-core RM-shared job gets. The n = 32000 runs (32 GB at p = 1) used an exclusive RM node.</p>
+  </div></details>
+  <details><summary>Could you avoid the pack with MPI datatypes?</summary><div>
+    <p>Yes. An <code>MPI_Type_vector</code> describing a strided column block lets MPI_Alltoall read straight from A. The strided copy still happens, just inside the library, so the cost moves rather than disappears.</p>
+  </div></details>
+</section>
+
+<section id="numbers">
+  <div class="sec-head"><h2>Numbers to know by heart</h2><span class="pts">cheat sheet</span></div>
+  <div class="two">
+    <div class="scroll"><table>
+      <tbody>
+        <tr><td>T₁, n = 32000</td><td class="num">1.04 s</td></tr>
+        <tr><td>Speedup at 2 / 4 / 8</td><td class="num">2.02 / 3.75 / 4.33</td></tr>
+        <tr><td>--map-by l3cache, p = 8</td><td class="num">7.15×</td></tr>
+        <tr><td>t_c</td><td class="num">1.006 ns</td></tr>
+        <tr><td>t_s / t_w</td><td class="num">0.14 µs / 0.55 ns</td></tr>
+      </tbody>
+    </table></div>
+    <div class="scroll"><table>
+      <tbody>
+        <tr><td>Comm share at n = 32000</td><td class="num">&lt; 0.5%</td></tr>
+        <tr><td>Comm share at n = 1000, p = 8</td><td class="num">18%</td></tr>
+        <tr><td>One-CCD bandwidth</td><td class="num">37 GB/s</td></tr>
+        <tr><td>Transpose speedup, p = 8</td><td class="num">2.81×</td></tr>
+        <tr><td>Isoefficiency (mvm)</td><td class="num">Θ(p²)</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <p>The full data, one sheet per experiment, is in <code>pa4-data.xlsx</code> in the repo. The raw Slurm outputs are in <code>results/</code>; every table on this page names its source file.</p>
+</section>
+
+<footer>Generated from the PA4 repo's Bridges-2 job outputs. Check any claim against <code>results/</code> before you repeat it in the demo.</footer>
+</div>
+
+<script>
+document.querySelectorAll('.cmd button').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var pre = btn.parentElement.querySelector('pre');
+    var text = pre.innerText;
+    var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1500); };
+    var fallback = function () {
+      var r = document.createRange(); r.selectNodeContents(pre);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = 'Press ⌘C';
+    };
+    try {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } catch (e) { fallback(); }
+  });
+});
+</script>

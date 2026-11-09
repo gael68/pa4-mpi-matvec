@@ -1,0 +1,133 @@
++ make mvm
+make: 'mvm' is up to date.
++ RUNS=5
++ for np in 1 2 4 8
+++ seq 1 5
++ for r in $(seq 1 $RUNS)
++ echo 'Running with 1 processes (run 1)...'
+Running with 1 processes (run 1)...
++ mpirun -n 1 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 1.037225 sec
++ for r in $(seq 1 $RUNS)
++ echo 'Running with 1 processes (run 2)...'
+Running with 1 processes (run 2)...
++ mpirun -n 1 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 1.046180 sec
++ for r in $(seq 1 $RUNS)
++ echo 'Running with 1 processes (run 3)...'
+Running with 1 processes (run 3)...
++ mpirun -n 1 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 1.046355 sec
++ for r in $(seq 1 $RUNS)
++ echo 'Running with 1 processes (run 4)...'
+Running with 1 processes (run 4)...
++ mpirun -n 1 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 1.038888 sec
++ for r in $(seq 1 $RUNS)
++ echo 'Running with 1 processes (run 5)...'
+Running with 1 processes (run 5)...
++ mpirun -n 1 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 1.042695 sec
++ for np in 1 2 4 8
+++ seq 1 5
++ for r in $(seq 1 $RUNS)
++ echo 'Running with 2 processes (run 1)...'
+Running with 2 processes (run 1)...
++ mpirun -n 2 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.516549 sec
++ for r in $(seq 1 $RUNS)
++ echo 'Running with 2 processes (run 2)...'
+Running with 2 processes (run 2)...
++ mpirun -n 2 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.515117 sec
++ for r in $(seq 1 $RUNS)
++ echo 'Running with 2 processes (run 3)...'
+Running with 2 processes (run 3)...
++ mpirun -n 2 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.513244 sec
++ for r in $(seq 1 $RUNS)
++ echo 'Running with 2 processes (run 4)...'
+Running with 2 processes (run 4)...
++ mpirun -n 2 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.517611 sec
++ for r in $(seq 1 $RUNS)
++ echo 'Running with 2 processes (run 5)...'
+Running with 2 processes (run 5)...
++ mpirun -n 2 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.519272 sec
++ for np in 1 2 4 8
+++ seq 1 5
++ for r in $(seq 1 $RUNS)
++ echo 'Running with 4 processes (run 1)...'
+Running with 4 processes (run 1)...
++ mpirun -n 4 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.272366 sec
++ for r in $(seq 1 $RUNS)
++ echo 'Running with 4 processes (run 2)...'
+Running with 4 processes (run 2)...
++ mpirun -n 4 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.273362 sec
++ for r in $(seq 1 $RUNS)
++ echo 'Running with 4 processes (run 3)...'
+Running with 4 processes (run 3)...
++ mpirun -n 4 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.283679 sec
++ for r in $(seq 1 $RUNS)
++ echo 'Running with 4 processes (run 4)...'
+Running with 4 processes (run 4)...
++ mpirun -n 4 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.288808 sec
++ for r in $(seq 1 $RUNS)
++ echo 'Running with 4 processes (run 5)...'
+Running with 4 processes (run 5)...
++ mpirun -n 4 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.272582 sec
++ for np in 1 2 4 8
+++ seq 1 5
++ for r in $(seq 1 $RUNS)
++ echo 'Running with 8 processes (run 1)...'
+Running with 8 processes (run 1)...
++ mpirun -n 8 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.243951 sec
++ for r in $(seq 1 $RUNS)
++ echo 'Running with 8 processes (run 2)...'
+Running with 8 processes (run 2)...
++ mpirun -n 8 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.232616 sec
++ for r in $(seq 1 $RUNS)
++ echo 'Running with 8 processes (run 3)...'
+Running with 8 processes (run 3)...
++ mpirun -n 8 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.237474 sec
++ for r in $(seq 1 $RUNS)
++ echo 'Running with 8 processes (run 4)...'
+Running with 8 processes (run 4)...
++ mpirun -n 8 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.246677 sec
++ for r in $(seq 1 $RUNS)
++ echo 'Running with 8 processes (run 5)...'
+Running with 8 processes (run 5)...
++ mpirun -n 8 ./mvm 32000
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.243942 sec
++ echo 'Job completed'
+Job completed

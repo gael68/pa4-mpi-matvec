@@ -1,0 +1,478 @@
+host: r195.ib.bridges2.psc.edu  job: 50358765  date: Mon Nov  9 01:15:55 EST 2026
+##### environment
+
+Currently Loaded Modules:
+  1) allocations/1.0            3) gcc/13.3.1-p20240614
+  2) psc.allocations.user/1.0   4) openmpi/5.0.8-gcc13.3.1
+
+ 
+
+gcc -I/opt/packages/openmpi/5.0.8/gnu-13.3.1/include -I/opt/packages/openmpi/5.0.8/gnu-13.3.1/include/openmpi -pthread -L/opt/packages/openmpi/5.0.8/gnu-13.3.1/lib -Wl,-rpath -Wl,/opt/packages/openmpi/5.0.8/gnu-13.3.1/lib -Wl,--enable-new-dtags -lmpi
+                Open MPI: 5.0.8
+ Configured architecture: x86_64-pc-linux-gnu
+     C compiler absolute: /usr/bin/gcc
+Thread(s) per core:  1
+Core(s) per socket:  64
+Socket(s):           2
+NUMA node(s):        2
+Model name:          AMD EPYC 7742 64-Core Processor
+CPU MHz:             3136.513
+L1d cache:           32K
+L2 cache:            512K
+L3 cache:            16384K
+NUMA node0 CPU(s):   0-63
+NUMA node1 CPU(s):   64-127
+cpus this job may use: 32-46,51
+policy: default
+preferred node: current
+physcpubind: 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 51 
+cpubind: 0 
+nodebind: 0 
+membind: 0 1 
+preferred: 
+              total        used        free      shared  buff/cache   available
+Mem:            251          57         179           0          14         191
+##### where the ranks run (default mapping)
+=== np=2
+[r195.ib.bridges2.psc.edu:68973] Rank 0 bound to package[0][core:32]
+[r195.ib.bridges2.psc.edu:68973] Rank 1 bound to package[0][core:33]
+=== np=4
+[r195.ib.bridges2.psc.edu:69019] Rank 0 bound to package[0][core:32]
+[r195.ib.bridges2.psc.edu:69019] Rank 1 bound to package[0][core:33]
+[r195.ib.bridges2.psc.edu:69019] Rank 2 bound to package[0][core:34]
+[r195.ib.bridges2.psc.edu:69019] Rank 3 bound to package[0][core:35]
+=== np=8
+[r195.ib.bridges2.psc.edu:69044] Rank 0 bound to package[0][core:32]
+[r195.ib.bridges2.psc.edu:69044] Rank 1 bound to package[0][core:33]
+[r195.ib.bridges2.psc.edu:69044] Rank 2 bound to package[0][core:34]
+[r195.ib.bridges2.psc.edu:69044] Rank 3 bound to package[0][core:35]
+[r195.ib.bridges2.psc.edu:69044] Rank 4 bound to package[0][core:36]
+[r195.ib.bridges2.psc.edu:69044] Rank 5 bound to package[0][core:37]
+[r195.ib.bridges2.psc.edu:69044] Rank 6 bound to package[0][core:38]
+[r195.ib.bridges2.psc.edu:69044] Rank 7 bound to package[0][core:39]
+##### allgather vs compute, per rank
+=== n=1000 np=1 run=1
+rank 0 allgather_s 0.000003 compute_s 0.000966 GBps 8.28
+Done with mvm, y[999] = 1330834500.000000
+Parallel matrix vector multiplication time: 0.001022 sec
+=== n=1000 np=1 run=2
+rank 0 allgather_s 0.000003 compute_s 0.000965 GBps 8.29
+Done with mvm, y[999] = 1330834500.000000
+Parallel matrix vector multiplication time: 0.001032 sec
+=== n=1000 np=1 run=3
+rank 0 allgather_s 0.000004 compute_s 0.001010 GBps 7.92
+Done with mvm, y[999] = 1330834500.000000
+Parallel matrix vector multiplication time: 0.001070 sec
+=== n=1000 np=2 run=1
+rank 0 allgather_s 0.000041 compute_s 0.000512 GBps 7.81
+rank 1 allgather_s 0.000030 compute_s 0.000532 GBps 7.53
+Done with mvm, y[999] = 1330834500.000000
+Parallel matrix vector multiplication time: 0.000618 sec
+=== n=1000 np=2 run=2
+rank 0 allgather_s 0.000032 compute_s 0.000499 GBps 8.02
+rank 1 allgather_s 0.000023 compute_s 0.000494 GBps 8.10
+Done with mvm, y[999] = 1330834500.000000
+Parallel matrix vector multiplication time: 0.000580 sec
+=== n=1000 np=2 run=3
+rank 0 allgather_s 0.000031 compute_s 0.000483 GBps 8.28
+rank 1 allgather_s 0.000025 compute_s 0.000525 GBps 7.62
+Done with mvm, y[999] = 1330834500.000000
+Parallel matrix vector multiplication time: 0.000601 sec
+=== n=1000 np=4 run=1
+rank 0 allgather_s 0.000045 compute_s 0.000248 GBps 8.08
+rank 1 allgather_s 0.000045 compute_s 0.000260 GBps 7.70
+rank 2 allgather_s 0.000035 compute_s 0.000241 GBps 8.28
+rank 3 allgather_s 0.000019 compute_s 0.000239 GBps 8.36
+Done with mvm, y[999] = 1330834500.000000
+Parallel matrix vector multiplication time: 0.000365 sec
+=== n=1000 np=4 run=2
+rank 0 allgather_s 0.000052 compute_s 0.000245 GBps 8.16
+rank 1 allgather_s 0.000052 compute_s 0.000243 GBps 8.24
+rank 2 allgather_s 0.000036 compute_s 0.000241 GBps 8.31
+rank 3 allgather_s 0.000036 compute_s 0.000242 GBps 8.25
+Done with mvm, y[999] = 1330834500.000000
+Parallel matrix vector multiplication time: 0.000354 sec
+=== n=1000 np=4 run=3
+rank 0 allgather_s 0.000032 compute_s 0.000279 GBps 7.18
+rank 1 allgather_s 0.000034 compute_s 0.000264 GBps 7.58
+rank 2 allgather_s 0.000023 compute_s 0.000264 GBps 7.57
+rank 3 allgather_s 0.000024 compute_s 0.000265 GBps 7.56
+Done with mvm, y[999] = 1330834500.000000
+Parallel matrix vector multiplication time: 0.000380 sec
+=== n=1000 np=8 run=1
+rank 0 allgather_s 0.000045 compute_s 0.000126 GBps 7.91
+rank 1 allgather_s 0.000032 compute_s 0.000127 GBps 7.87
+rank 2 allgather_s 0.000039 compute_s 0.000128 GBps 7.83
+rank 3 allgather_s 0.000039 compute_s 0.000129 GBps 7.76
+rank 4 allgather_s 0.000036 compute_s 0.000214 GBps 4.68
+rank 5 allgather_s 0.000029 compute_s 0.000201 GBps 4.98
+rank 6 allgather_s 0.000030 compute_s 0.000159 GBps 6.27
+rank 7 allgather_s 0.000023 compute_s 0.000189 GBps 5.29
+Done with mvm, y[999] = 1330834500.000000
+Parallel matrix vector multiplication time: 0.000338 sec
+=== n=1000 np=8 run=2
+rank 0 allgather_s 0.000051 compute_s 0.000145 GBps 6.88
+rank 1 allgather_s 0.000027 compute_s 0.000142 GBps 7.07
+rank 2 allgather_s 0.000025 compute_s 0.000133 GBps 7.55
+rank 3 allgather_s 0.000036 compute_s 0.000132 GBps 7.56
+rank 4 allgather_s 0.000037 compute_s 0.000221 GBps 4.52
+rank 5 allgather_s 0.000034 compute_s 0.000215 GBps 4.66
+rank 6 allgather_s 0.000030 compute_s 0.000153 GBps 6.52
+rank 7 allgather_s 0.000028 compute_s 0.000223 GBps 4.48
+Done with mvm, y[999] = 1330834500.000000
+Parallel matrix vector multiplication time: 0.000474 sec
+=== n=1000 np=8 run=3
+rank 0 allgather_s 0.000053 compute_s 0.000141 GBps 7.07
+rank 1 allgather_s 0.000042 compute_s 0.000130 GBps 7.70
+rank 2 allgather_s 0.000049 compute_s 0.000131 GBps 7.64
+rank 3 allgather_s 0.000024 compute_s 0.000130 GBps 7.68
+rank 4 allgather_s 0.000035 compute_s 0.000183 GBps 5.45
+rank 5 allgather_s 0.000025 compute_s 0.000184 GBps 5.43
+rank 6 allgather_s 0.000033 compute_s 0.000240 GBps 4.16
+rank 7 allgather_s 0.000028 compute_s 0.000179 GBps 5.59
+Done with mvm, y[999] = 1330834500.000000
+Parallel matrix vector multiplication time: 0.000363 sec
+=== n=4000 np=1 run=1
+rank 0 allgather_s 0.000013 compute_s 0.015858 GBps 8.07
+Done with mvm, y[3999] = 85293338000.000000
+Parallel matrix vector multiplication time: 0.015975 sec
+=== n=4000 np=1 run=2
+rank 0 allgather_s 0.000012 compute_s 0.015989 GBps 8.01
+Done with mvm, y[3999] = 85293338000.000000
+Parallel matrix vector multiplication time: 0.016082 sec
+=== n=4000 np=1 run=3
+rank 0 allgather_s 0.000014 compute_s 0.016065 GBps 7.97
+Done with mvm, y[3999] = 85293338000.000000
+Parallel matrix vector multiplication time: 0.016165 sec
+=== n=4000 np=2 run=1
+rank 0 allgather_s 0.000059 compute_s 0.007834 GBps 8.17
+rank 1 allgather_s 0.000055 compute_s 0.007818 GBps 8.19
+Done with mvm, y[3999] = 85293338000.000000
+Parallel matrix vector multiplication time: 0.007975 sec
+=== n=4000 np=2 run=2
+rank 0 allgather_s 0.000084 compute_s 0.007732 GBps 8.28
+rank 1 allgather_s 0.000032 compute_s 0.007708 GBps 8.30
+Done with mvm, y[3999] = 85293338000.000000
+Parallel matrix vector multiplication time: 0.007896 sec
+=== n=4000 np=2 run=3
+rank 0 allgather_s 0.000088 compute_s 0.008104 GBps 7.90
+rank 1 allgather_s 0.000042 compute_s 0.008076 GBps 7.92
+Done with mvm, y[3999] = 85293338000.000000
+Parallel matrix vector multiplication time: 0.008288 sec
+=== n=4000 np=4 run=1
+rank 0 allgather_s 0.000060 compute_s 0.004238 GBps 7.55
+rank 1 allgather_s 0.000056 compute_s 0.004238 GBps 7.55
+rank 2 allgather_s 0.000044 compute_s 0.004242 GBps 7.54
+rank 3 allgather_s 0.000034 compute_s 0.004250 GBps 7.53
+Done with mvm, y[3999] = 85293338000.000000
+Parallel matrix vector multiplication time: 0.004446 sec
+=== n=4000 np=4 run=2
+rank 0 allgather_s 0.000063 compute_s 0.004948 GBps 6.47
+rank 1 allgather_s 0.000058 compute_s 0.004953 GBps 6.46
+rank 2 allgather_s 0.000045 compute_s 0.004951 GBps 6.46
+rank 3 allgather_s 0.000039 compute_s 0.004927 GBps 6.49
+Done with mvm, y[3999] = 85293338000.000000
+Parallel matrix vector multiplication time: 0.005177 sec
+=== n=4000 np=4 run=3
+rank 0 allgather_s 0.000063 compute_s 0.004203 GBps 7.61
+rank 1 allgather_s 0.000057 compute_s 0.004196 GBps 7.63
+rank 2 allgather_s 0.000045 compute_s 0.004203 GBps 7.61
+rank 3 allgather_s 0.000041 compute_s 0.004213 GBps 7.59
+Done with mvm, y[3999] = 85293338000.000000
+Parallel matrix vector multiplication time: 0.004437 sec
+=== n=4000 np=8 run=1
+rank 0 allgather_s 0.000098 compute_s 0.003857 GBps 4.15
+rank 1 allgather_s 0.000110 compute_s 0.003843 GBps 4.16
+rank 2 allgather_s 0.000071 compute_s 0.003832 GBps 4.18
+rank 3 allgather_s 0.000080 compute_s 0.003848 GBps 4.16
+rank 4 allgather_s 0.000067 compute_s 0.003495 GBps 4.58
+rank 5 allgather_s 0.000070 compute_s 0.003522 GBps 4.54
+rank 6 allgather_s 0.000045 compute_s 0.003518 GBps 4.55
+rank 7 allgather_s 0.000050 compute_s 0.003532 GBps 4.53
+Done with mvm, y[3999] = 85293338000.000000
+Parallel matrix vector multiplication time: 0.004144 sec
+=== n=4000 np=8 run=2
+rank 0 allgather_s 0.000096 compute_s 0.003815 GBps 4.19
+rank 1 allgather_s 0.000087 compute_s 0.003813 GBps 4.20
+rank 2 allgather_s 0.000075 compute_s 0.003832 GBps 4.18
+rank 3 allgather_s 0.000085 compute_s 0.003809 GBps 4.20
+rank 4 allgather_s 0.000061 compute_s 0.003468 GBps 4.61
+rank 5 allgather_s 0.000064 compute_s 0.003499 GBps 4.57
+rank 6 allgather_s 0.000045 compute_s 0.003444 GBps 4.65
+rank 7 allgather_s 0.000048 compute_s 0.003504 GBps 4.57
+Done with mvm, y[3999] = 85293338000.000000
+Parallel matrix vector multiplication time: 0.004097 sec
+=== n=4000 np=8 run=3
+rank 0 allgather_s 0.000094 compute_s 0.003983 GBps 4.02
+rank 1 allgather_s 0.000086 compute_s 0.004069 GBps 3.93
+rank 2 allgather_s 0.000068 compute_s 0.003978 GBps 4.02
+rank 3 allgather_s 0.000072 compute_s 0.004054 GBps 3.95
+rank 4 allgather_s 0.000061 compute_s 0.003607 GBps 4.44
+rank 5 allgather_s 0.000058 compute_s 0.003583 GBps 4.47
+rank 6 allgather_s 0.000050 compute_s 0.003668 GBps 4.36
+rank 7 allgather_s 0.000052 compute_s 0.003656 GBps 4.38
+Done with mvm, y[3999] = 85293338000.000000
+Parallel matrix vector multiplication time: 0.004499 sec
+=== n=16000 np=1 run=1
+rank 0 allgather_s 0.000043 compute_s 0.263124 GBps 7.78
+Done with mvm, y[15999] = 5460693352000.000000
+Parallel matrix vector multiplication time: 0.263253 sec
+=== n=16000 np=1 run=2
+rank 0 allgather_s 0.000046 compute_s 0.271962 GBps 7.53
+Done with mvm, y[15999] = 5460693352000.000000
+Parallel matrix vector multiplication time: 0.272096 sec
+=== n=16000 np=1 run=3
+rank 0 allgather_s 0.000043 compute_s 0.266159 GBps 7.69
+Done with mvm, y[15999] = 5460693352000.000000
+Parallel matrix vector multiplication time: 0.266294 sec
+=== n=16000 np=2 run=1
+rank 0 allgather_s 0.000130 compute_s 0.130312 GBps 7.86
+rank 1 allgather_s 0.000086 compute_s 0.131300 GBps 7.80
+Done with mvm, y[15999] = 5460693352000.000000
+Parallel matrix vector multiplication time: 0.131520 sec
+=== n=16000 np=2 run=2
+rank 0 allgather_s 0.000147 compute_s 0.133764 GBps 7.66
+rank 1 allgather_s 0.000150 compute_s 0.133702 GBps 7.66
+Done with mvm, y[15999] = 5460693352000.000000
+Parallel matrix vector multiplication time: 0.134027 sec
+=== n=16000 np=2 run=3
+rank 0 allgather_s 0.000141 compute_s 0.130553 GBps 7.84
+rank 1 allgather_s 0.000138 compute_s 0.128913 GBps 7.94
+Done with mvm, y[15999] = 5460693352000.000000
+Parallel matrix vector multiplication time: 0.130797 sec
+=== n=16000 np=4 run=1
+rank 0 allgather_s 0.000140 compute_s 0.077857 GBps 6.58
+rank 1 allgather_s 0.000172 compute_s 0.077901 GBps 6.57
+rank 2 allgather_s 0.000117 compute_s 0.077878 GBps 6.57
+rank 3 allgather_s 0.000126 compute_s 0.077900 GBps 6.57
+Done with mvm, y[15999] = 5460693352000.000000
+Parallel matrix vector multiplication time: 0.078212 sec
+=== n=16000 np=4 run=2
+rank 0 allgather_s 0.000142 compute_s 0.085784 GBps 5.97
+rank 1 allgather_s 0.000143 compute_s 0.085706 GBps 5.97
+rank 2 allgather_s 0.000143 compute_s 0.085990 GBps 5.95
+rank 3 allgather_s 0.000127 compute_s 0.085802 GBps 5.97
+Done with mvm, y[15999] = 5460693352000.000000
+Parallel matrix vector multiplication time: 0.086228 sec
+=== n=16000 np=4 run=3
+rank 0 allgather_s 0.000102 compute_s 0.066407 GBps 7.71
+rank 1 allgather_s 0.000149 compute_s 0.066433 GBps 7.71
+rank 2 allgather_s 0.000146 compute_s 0.066506 GBps 7.70
+rank 3 allgather_s 0.000146 compute_s 0.066625 GBps 7.68
+Done with mvm, y[15999] = 5460693352000.000000
+Parallel matrix vector multiplication time: 0.066823 sec
+=== n=16000 np=8 run=1
+rank 0 allgather_s 0.000262 compute_s 0.058116 GBps 4.41
+rank 1 allgather_s 0.000266 compute_s 0.058206 GBps 4.40
+rank 2 allgather_s 0.000239 compute_s 0.058173 GBps 4.40
+rank 3 allgather_s 0.000231 compute_s 0.058135 GBps 4.40
+rank 4 allgather_s 0.000194 compute_s 0.057918 GBps 4.42
+rank 5 allgather_s 0.000201 compute_s 0.057570 GBps 4.45
+rank 6 allgather_s 0.000188 compute_s 0.058158 GBps 4.40
+rank 7 allgather_s 0.000184 compute_s 0.057658 GBps 4.44
+Done with mvm, y[15999] = 5460693352000.000000
+Parallel matrix vector multiplication time: 0.058634 sec
+=== n=16000 np=8 run=2
+rank 0 allgather_s 0.000248 compute_s 0.060326 GBps 4.24
+rank 1 allgather_s 0.000249 compute_s 0.060202 GBps 4.25
+rank 2 allgather_s 0.000222 compute_s 0.060131 GBps 4.26
+rank 3 allgather_s 0.000210 compute_s 0.060183 GBps 4.25
+rank 4 allgather_s 0.000198 compute_s 0.059744 GBps 4.28
+rank 5 allgather_s 0.000202 compute_s 0.060022 GBps 4.27
+rank 6 allgather_s 0.000196 compute_s 0.059898 GBps 4.27
+rank 7 allgather_s 0.000180 compute_s 0.060090 GBps 4.26
+Done with mvm, y[15999] = 5460693352000.000000
+Parallel matrix vector multiplication time: 0.060792 sec
+=== n=16000 np=8 run=3
+rank 0 allgather_s 0.000260 compute_s 0.060600 GBps 4.22
+rank 1 allgather_s 0.000270 compute_s 0.060468 GBps 4.23
+rank 2 allgather_s 0.000224 compute_s 0.060354 GBps 4.24
+rank 3 allgather_s 0.000218 compute_s 0.060675 GBps 4.22
+rank 4 allgather_s 0.000202 compute_s 0.060310 GBps 4.24
+rank 5 allgather_s 0.000200 compute_s 0.060387 GBps 4.24
+rank 6 allgather_s 0.000191 compute_s 0.060281 GBps 4.25
+rank 7 allgather_s 0.000183 compute_s 0.060106 GBps 4.26
+Done with mvm, y[15999] = 5460693352000.000000
+Parallel matrix vector multiplication time: 0.061140 sec
+=== n=32000 np=1 run=1
+rank 0 allgather_s 0.000090 compute_s 1.047187 GBps 7.82
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 1.047381 sec
+=== n=32000 np=1 run=2
+rank 0 allgather_s 0.000077 compute_s 1.057092 GBps 7.75
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 1.057275 sec
+=== n=32000 np=1 run=3
+rank 0 allgather_s 0.000083 compute_s 1.060199 GBps 7.73
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 1.060384 sec
+=== n=32000 np=2 run=1
+rank 0 allgather_s 0.000191 compute_s 0.508559 GBps 8.05
+rank 1 allgather_s 0.000158 compute_s 0.524467 GBps 7.81
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.524767 sec
+=== n=32000 np=2 run=2
+rank 0 allgather_s 0.000204 compute_s 0.543508 GBps 7.54
+rank 1 allgather_s 0.000168 compute_s 0.589611 GBps 6.95
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.589921 sec
+=== n=32000 np=2 run=3
+rank 0 allgather_s 0.000196 compute_s 0.518894 GBps 7.89
+rank 1 allgather_s 0.000161 compute_s 0.545813 GBps 7.50
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.546121 sec
+=== n=32000 np=4 run=1
+rank 0 allgather_s 0.000259 compute_s 0.271919 GBps 7.53
+rank 1 allgather_s 0.000948 compute_s 0.273093 GBps 7.50
+rank 2 allgather_s 0.000869 compute_s 0.272591 GBps 7.51
+rank 3 allgather_s 0.000253 compute_s 0.278684 GBps 7.35
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.279053 sec
+=== n=32000 np=4 run=2
+rank 0 allgather_s 0.000208 compute_s 0.285004 GBps 7.19
+rank 1 allgather_s 0.000553 compute_s 0.284841 GBps 7.19
+rank 2 allgather_s 0.000493 compute_s 0.285063 GBps 7.18
+rank 3 allgather_s 0.000198 compute_s 0.291026 GBps 7.04
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.291341 sec
+=== n=32000 np=4 run=3
+rank 0 allgather_s 0.000219 compute_s 0.272775 GBps 7.51
+rank 1 allgather_s 0.000528 compute_s 0.272777 GBps 7.51
+rank 2 allgather_s 0.000476 compute_s 0.275206 GBps 7.44
+rank 3 allgather_s 0.000216 compute_s 0.279426 GBps 7.33
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.279759 sec
+=== n=32000 np=8 run=1
+rank 0 allgather_s 0.000338 compute_s 0.235296 GBps 4.35
+rank 1 allgather_s 0.000902 compute_s 0.235471 GBps 4.35
+rank 2 allgather_s 0.000907 compute_s 0.237230 GBps 4.32
+rank 3 allgather_s 0.000893 compute_s 0.235621 GBps 4.35
+rank 4 allgather_s 0.000814 compute_s 0.230321 GBps 4.45
+rank 5 allgather_s 0.000837 compute_s 0.234688 GBps 4.36
+rank 6 allgather_s 0.000809 compute_s 0.237573 GBps 4.31
+rank 7 allgather_s 0.000292 compute_s 0.237330 GBps 4.31
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.238000 sec
+=== n=32000 np=8 run=2
+rank 0 allgather_s 0.000338 compute_s 0.224946 GBps 4.55
+rank 1 allgather_s 0.000942 compute_s 0.225640 GBps 4.54
+rank 2 allgather_s 0.000937 compute_s 0.224871 GBps 4.55
+rank 3 allgather_s 0.000906 compute_s 0.225751 GBps 4.54
+rank 4 allgather_s 0.000893 compute_s 0.219613 GBps 4.66
+rank 5 allgather_s 0.000844 compute_s 0.223396 GBps 4.58
+rank 6 allgather_s 0.000869 compute_s 0.226345 GBps 4.52
+rank 7 allgather_s 0.000292 compute_s 0.227723 GBps 4.50
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.228141 sec
+=== n=32000 np=8 run=3
+rank 0 allgather_s 0.000339 compute_s 0.244044 GBps 4.20
+rank 1 allgather_s 0.000651 compute_s 0.243869 GBps 4.20
+rank 2 allgather_s 0.000659 compute_s 0.242965 GBps 4.21
+rank 3 allgather_s 0.000626 compute_s 0.243388 GBps 4.21
+rank 4 allgather_s 0.000581 compute_s 0.241107 GBps 4.25
+rank 5 allgather_s 0.000536 compute_s 0.243056 GBps 4.21
+rank 6 allgather_s 0.000587 compute_s 0.246578 GBps 4.15
+rank 7 allgather_s 0.000308 compute_s 0.243216 GBps 4.21
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.247050 sec
+##### sequential fine sweep
+=== n=250 run=1
+Parallel matrix vector multiplication time: 0.000135 sec
+=== n=250 run=2
+Parallel matrix vector multiplication time: 0.000060 sec
+=== n=250 run=3
+Parallel matrix vector multiplication time: 0.000060 sec
+=== n=500 run=1
+Parallel matrix vector multiplication time: 0.000236 sec
+=== n=500 run=2
+Parallel matrix vector multiplication time: 0.000237 sec
+=== n=500 run=3
+Parallel matrix vector multiplication time: 0.000386 sec
+=== n=750 run=1
+Parallel matrix vector multiplication time: 0.000534 sec
+=== n=750 run=2
+Parallel matrix vector multiplication time: 0.000543 sec
+=== n=750 run=3
+Parallel matrix vector multiplication time: 0.000528 sec
+=== n=1000 run=1
+Parallel matrix vector multiplication time: 0.000976 sec
+=== n=1000 run=2
+Parallel matrix vector multiplication time: 0.000962 sec
+=== n=1000 run=3
+Parallel matrix vector multiplication time: 0.001052 sec
+=== n=1500 run=1
+Parallel matrix vector multiplication time: 0.002297 sec
+=== n=1500 run=2
+Parallel matrix vector multiplication time: 0.002294 sec
+=== n=1500 run=3
+Parallel matrix vector multiplication time: 0.002710 sec
+=== n=2000 run=1
+Parallel matrix vector multiplication time: 0.004100 sec
+=== n=2000 run=2
+Parallel matrix vector multiplication time: 0.003977 sec
+=== n=2000 run=3
+Parallel matrix vector multiplication time: 0.003891 sec
+=== n=3000 run=1
+Parallel matrix vector multiplication time: 0.008687 sec
+=== n=3000 run=2
+Parallel matrix vector multiplication time: 0.009114 sec
+=== n=3000 run=3
+Parallel matrix vector multiplication time: 0.008688 sec
+=== n=4000 run=1
+Parallel matrix vector multiplication time: 0.015814 sec
+=== n=4000 run=2
+Parallel matrix vector multiplication time: 0.016031 sec
+=== n=4000 run=3
+Parallel matrix vector multiplication time: 0.017029 sec
+=== n=6000 run=1
+Parallel matrix vector multiplication time: 0.035182 sec
+=== n=6000 run=2
+Parallel matrix vector multiplication time: 0.035329 sec
+=== n=6000 run=3
+Parallel matrix vector multiplication time: 0.037132 sec
+=== n=8000 run=1
+Parallel matrix vector multiplication time: 0.063201 sec
+=== n=8000 run=2
+Parallel matrix vector multiplication time: 0.064235 sec
+=== n=8000 run=3
+Parallel matrix vector multiplication time: 0.064175 sec
+=== n=12000 run=1
+Parallel matrix vector multiplication time: 0.144261 sec
+=== n=12000 run=2
+Parallel matrix vector multiplication time: 0.143737 sec
+=== n=12000 run=3
+Parallel matrix vector multiplication time: 0.146592 sec
+=== n=16000 run=1
+Parallel matrix vector multiplication time: 0.259209 sec
+=== n=16000 run=2
+Parallel matrix vector multiplication time: 0.253128 sec
+=== n=16000 run=3
+Parallel matrix vector multiplication time: 0.269445 sec
+=== n=24000 run=1
+Parallel matrix vector multiplication time: 0.594063 sec
+=== n=24000 run=2
+Parallel matrix vector multiplication time: 0.583752 sec
+=== n=24000 run=3
+Parallel matrix vector multiplication time: 0.590607 sec
+=== n=32000 run=1
+Parallel matrix vector multiplication time: 1.036404 sec
+=== n=32000 run=2
+Parallel matrix vector multiplication time: 1.035656 sec
+=== n=32000 run=3
+Parallel matrix vector multiplication time: 1.032481 sec
+##### accounting for this lab's jobs
+JobID                JobName  Partition  AllocCPUS    Elapsed      State        NodeList 
+------------ --------------- ---------- ---------- ---------- ---------- --------------- 
+50358707       pa3-mergesort  RM-shared         16   00:02:34  COMPLETED            r195 
+50358708           pa4-task1  RM-shared         16   00:00:03     FAILED            r227 
+50358709           pa4-task2  RM-shared         16   00:00:03     FAILED            r303 
+50358710           pa4-task4  RM-shared         16   00:01:42  COMPLETED            r364 
+50358711       pa4-transpose  RM-shared         16   00:00:28  COMPLETED            r367 
+50358714           pa3-extra  RM-shared         64   00:10:20    RUNNING            r358 
+50358715           pa4-task1  RM-shared         16   00:00:30  COMPLETED            r195 
+50358716           pa4-task2  RM-shared         16   00:00:40  COMPLETED            r227 
+50358718          pa4-extras         RM        128   00:05:11  COMPLETED            r434 
+50358720           pa4-task4  RM-shared         16   00:01:47  COMPLETED            r195 
+50358765            pa4-deep  RM-shared         16   00:02:20    RUNNING            r195 
+50358766        pa3-evidence  RM-shared         16   00:02:00    RUNNING            r227 
+done

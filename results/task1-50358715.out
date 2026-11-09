@@ -1,0 +1,66 @@
+host: r195.ib.bridges2.psc.edu  job: 50358715  date: Mon Nov  9 01:07:55 EST 2026
+gcc (GCC) 13.3.1 20240614
+=== n=8 np=1
+discrepancies: 0
+Done with mvm, y[7] = 532.000000
+Parallel matrix vector multiplication time: 0.000005 sec
+=== n=8 np=2
+discrepancies: 0
+Done with mvm, y[7] = 532.000000
+Parallel matrix vector multiplication time: 0.000019 sec
+=== n=8 np=4
+discrepancies: 0
+Done with mvm, y[7] = 532.000000
+Parallel matrix vector multiplication time: 0.000032 sec
+=== n=8 np=8
+discrepancies: 0
+Done with mvm, y[7] = 532.000000
+Parallel matrix vector multiplication time: 0.000083 sec
+=== n=32 np=1
+discrepancies: 0
+Done with mvm, y[31] = 41168.000000
+Parallel matrix vector multiplication time: 0.000004 sec
+=== n=32 np=2
+discrepancies: 0
+Done with mvm, y[31] = 41168.000000
+Parallel matrix vector multiplication time: 0.000037 sec
+=== n=32 np=4
+discrepancies: 0
+Done with mvm, y[31] = 41168.000000
+Parallel matrix vector multiplication time: 0.000015 sec
+=== n=32 np=8
+discrepancies: 0
+Done with mvm, y[31] = 41168.000000
+Parallel matrix vector multiplication time: 0.000034 sec
+=== n=1024 np=1
+discrepancies: 0
+Done with mvm, y[1023] = 1429035520.000000
+Parallel matrix vector multiplication time: 0.001029 sec
+=== n=1024 np=2
+discrepancies: 0
+Done with mvm, y[1023] = 1429035520.000000
+Parallel matrix vector multiplication time: 0.000555 sec
+=== n=1024 np=4
+discrepancies: 0
+Done with mvm, y[1023] = 1429035520.000000
+Parallel matrix vector multiplication time: 0.000283 sec
+=== n=1024 np=8
+discrepancies: 0
+Done with mvm, y[1023] = 1429035520.000000
+Parallel matrix vector multiplication time: 0.000204 sec
+=== n=32000 np=1
+discrepancies: 0
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 1.029128 sec
+=== n=32000 np=2
+discrepancies: 0
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.511679 sec
+=== n=32000 np=4
+discrepancies: 0
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.272106 sec
+=== n=32000 np=8
+discrepancies: 0
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 0.243680 sec

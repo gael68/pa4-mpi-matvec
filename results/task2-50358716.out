@@ -1,0 +1,92 @@
+host: r227.ib.bridges2.psc.edu  job: 50358716  date: Mon Nov  9 01:07:55 EST 2026
+gcc (GCC) 13.3.1 20240614
+=== n=1000 run=1
+Done with mvm, y[999] = 1330834500.000000
+Parallel matrix vector multiplication time: 0.000975 sec
+=== n=1000 run=2
+Done with mvm, y[999] = 1330834500.000000
+Parallel matrix vector multiplication time: 0.000963 sec
+=== n=1000 run=3
+Done with mvm, y[999] = 1330834500.000000
+Parallel matrix vector multiplication time: 0.000983 sec
+=== n=1000 run=4
+Done with mvm, y[999] = 1330834500.000000
+Parallel matrix vector multiplication time: 0.001023 sec
+=== n=1000 run=5
+Done with mvm, y[999] = 1330834500.000000
+Parallel matrix vector multiplication time: 0.000980 sec
+=== n=2000 run=1
+Done with mvm, y[1999] = 10656669000.000000
+Parallel matrix vector multiplication time: 0.003949 sec
+=== n=2000 run=2
+Done with mvm, y[1999] = 10656669000.000000
+Parallel matrix vector multiplication time: 0.003963 sec
+=== n=2000 run=3
+Done with mvm, y[1999] = 10656669000.000000
+Parallel matrix vector multiplication time: 0.004033 sec
+=== n=2000 run=4
+Done with mvm, y[1999] = 10656669000.000000
+Parallel matrix vector multiplication time: 0.004020 sec
+=== n=2000 run=5
+Done with mvm, y[1999] = 10656669000.000000
+Parallel matrix vector multiplication time: 0.003994 sec
+=== n=4000 run=1
+Done with mvm, y[3999] = 85293338000.000000
+Parallel matrix vector multiplication time: 0.015803 sec
+=== n=4000 run=2
+Done with mvm, y[3999] = 85293338000.000000
+Parallel matrix vector multiplication time: 0.016595 sec
+=== n=4000 run=3
+Done with mvm, y[3999] = 85293338000.000000
+Parallel matrix vector multiplication time: 0.018427 sec
+=== n=4000 run=4
+Done with mvm, y[3999] = 85293338000.000000
+Parallel matrix vector multiplication time: 0.016039 sec
+=== n=4000 run=5
+Done with mvm, y[3999] = 85293338000.000000
+Parallel matrix vector multiplication time: 0.016410 sec
+=== n=8000 run=1
+Done with mvm, y[7999] = 682506676000.000000
+Parallel matrix vector multiplication time: 0.067324 sec
+=== n=8000 run=2
+Done with mvm, y[7999] = 682506676000.000000
+Parallel matrix vector multiplication time: 0.064655 sec
+=== n=8000 run=3
+Done with mvm, y[7999] = 682506676000.000000
+Parallel matrix vector multiplication time: 0.063374 sec
+=== n=8000 run=4
+Done with mvm, y[7999] = 682506676000.000000
+Parallel matrix vector multiplication time: 0.065261 sec
+=== n=8000 run=5
+Done with mvm, y[7999] = 682506676000.000000
+Parallel matrix vector multiplication time: 0.066528 sec
+=== n=16000 run=1
+Done with mvm, y[15999] = 5460693352000.000000
+Parallel matrix vector multiplication time: 0.267298 sec
+=== n=16000 run=2
+Done with mvm, y[15999] = 5460693352000.000000
+Parallel matrix vector multiplication time: 0.263090 sec
+=== n=16000 run=3
+Done with mvm, y[15999] = 5460693352000.000000
+Parallel matrix vector multiplication time: 0.263298 sec
+=== n=16000 run=4
+Done with mvm, y[15999] = 5460693352000.000000
+Parallel matrix vector multiplication time: 0.251852 sec
+=== n=16000 run=5
+Done with mvm, y[15999] = 5460693352000.000000
+Parallel matrix vector multiplication time: 0.256370 sec
+=== n=32000 run=1
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 1.031033 sec
+=== n=32000 run=2
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 1.028863 sec
+=== n=32000 run=3
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 1.029259 sec
+=== n=32000 run=4
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 1.028398 sec
+=== n=32000 run=5
+Done with mvm, y[31999] = 43688106704000.000000
+Parallel matrix vector multiplication time: 1.032753 sec
