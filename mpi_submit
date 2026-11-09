@@ -1,18 +1,26 @@
 #!/bin/bash
+#SBATCH -J pa4-task4
+#SBATCH -p RM-shared
 #SBATCH -N 1
-#SBATCH --tasks-per-node=8
+# 16 cores for the ~2 GB/core memory: rank 0 holds two 8 GB copies of A at n=32000
+#SBATCH --tasks-per-node=16
 #SBATCH -t 0:30:00
+#SBATCH -o task4-%j.out
 
-#echo commands to stdout
+cd "$SLURM_SUBMIT_DIR"
+export HOSTNAME=${HOSTNAME:-$(hostname -s)}
+module load openmpi
+
+# echo commands to stdout (after module load, whose trace is hundreds of lines)
 set -x
+make mvm
 
-# substitute your directory name below
-cd /jet/home/sbrowne/CS4175/PA4
-module load openmpi 
-
+RUNS=5
 for np in 1 2 4 8; do
-    echo "Running with $np processes..."
-    mpirun -n $np ./mvm 32000
+    for r in $(seq 1 $RUNS); do
+        echo "Running with $np processes (run $r)..."
+        mpirun -n $np ./mvm 32000
+    done
 done
 
 echo "Job completed"
