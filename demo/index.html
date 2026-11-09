@@ -395,7 +395,7 @@ Parallel matrix vector multiplication time: 0.230235 sec</pre>
   <h3>The algorithm, in three phases</h3>
   <p>Each of the p processes owns <code>b = n/p</code> consecutive rows of A (an n × n matrix of doubles) and builds its own rows from the global indices: <code>A[i][j] = i·n + j</code>. Think of its rows as p blocks of b × b. Block k of process r belongs, transposed, to process k.</p>
   <ol>
-    <li><strong>Local transpose (pack), <code>transpose.c:79–86</code>.</strong> Transpose each b × b block into a send buffer, block k at offset k·b². The loop is tiled 64 × 64 so the column-order writes stay in cache.</li>
+    <li><strong>Local transpose (pack), <code>transpose.c:75–87</code>.</strong> Transpose each b × b block into a send buffer, block k at offset k·b². The loop is tiled 64 × 64 so the column-order writes stay in cache.</li>
     <li><strong>Exchange, <code>transpose.c:90</code>.</strong> <code>MPI_Alltoall</code> sends block k to process k and receives one block from everyone. Every process sends a different block to every other process, which is exactly what all-to-all personalized communication does.</li>
     <li><strong>Unpack, <code>transpose.c:93–98</code>.</strong> Received block k becomes columns k·b … (k+1)·b−1 of the local rows of Aᵀ, one <code>memcpy</code> per row.</li>
   </ol>
