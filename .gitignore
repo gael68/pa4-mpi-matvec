@@ -5,3 +5,4 @@ commbench
 run.tmp
 compile_flags.txt
 .DS_Store
+mvm-timed
