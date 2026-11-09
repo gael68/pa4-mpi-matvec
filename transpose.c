@@ -9,11 +9,13 @@
  *   2. alltoall:  block k of every process goes to process k
  *   3. unpack:    lay the p received b x b blocks side by side as rows of B
  *
- * Usage: mpirun -np p ./transpose n [reps]
+ * Usage: mpirun -np p ./transpose n [reps] [tile]
+ *   tile: side of the cache tile for the local transpose; 0 = untiled
  */
 #include <mpi.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 static double elem(long i, long j, long n) { return (double)(i * n + j); }
 
@@ -32,14 +34,17 @@ int main(int argc, char *argv[])
     }
     long n = atol(argv[1]);
     int reps = argc > 2 ? atoi(argv[2]) : 5;
-    if (n <= 0 || n % p != 0 || reps <= 0) {
+    long tile = argc > 3 ? atol(argv[3]) : 64;
+    if (n <= 0 || n % p != 0 || reps <= 0 || tile < 0) {
         if (rank == 0)
-            fprintf(stderr, "n must be positive and divisible by p=%d; reps > 0\n", p);
+            fprintf(stderr, "n must be positive and divisible by p=%d; reps > 0; tile >= 0\n", p);
         MPI_Finalize();
         return 1;
     }
 
     long b = n / p;
+    if (tile == 0)
+        tile = b;
     long local = b * n;
     double *a = malloc(local * sizeof(double));
     double *sbuf = malloc(local * sizeof(double));
@@ -67,12 +72,18 @@ int main(int argc, char *argv[])
         MPI_Barrier(MPI_COMM_WORLD);
         double t0 = MPI_Wtime();
 
-        /* sbuf block k holds the transpose of a[:, k*b:(k+1)*b] */
+        /* sbuf block k holds the transpose of a[:, k*b:(k+1)*b]. Writes go
+         * down columns, so tiling keeps the touched cache lines resident. */
         for (int k = 0; k < p; k++) {
             double *dst = sbuf + (long)k * blk;
-            for (long i = 0; i < b; i++)
-                for (long j = 0; j < b; j++)
-                    dst[j * b + i] = a[i * n + k * b + j];
+            for (long ii = 0; ii < b; ii += tile)
+                for (long jj = 0; jj < b; jj += tile) {
+                    long ie = ii + tile < b ? ii + tile : b;
+                    long je = jj + tile < b ? jj + tile : b;
+                    for (long i = ii; i < ie; i++)
+                        for (long j = jj; j < je; j++)
+                            dst[j * b + i] = a[i * n + k * b + j];
+                }
         }
         double t1 = MPI_Wtime();
 
@@ -83,8 +94,7 @@ int main(int argc, char *argv[])
         for (int k = 0; k < p; k++) {
             double *src = rbuf + (long)k * blk;
             for (long i = 0; i < b; i++)
-                for (long j = 0; j < b; j++)
-                    t[i * n + k * b + j] = src[i * b + j];
+                memcpy(t + i * n + k * b, src + i * b, b * sizeof(double));
         }
         double t3 = MPI_Wtime();
 
@@ -108,7 +118,7 @@ int main(int argc, char *argv[])
     MPI_Reduce(&bad, &totbad, 1, MPI_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
 
     if (rank == 0) {
-        printf("n=%ld p=%d reps=%d bytes/rank=%ld %s\n", n, p, reps,
+        printf("n=%ld p=%d reps=%d tile=%ld bytes/rank=%ld %s\n", n, p, reps, tile,
                local * (long)sizeof(double), totbad ? "FAILED" : "correct");
         printf("        %10s %10s %10s %10s\n", "pack", "alltoall", "unpack", "total");
         printf("avg(s)  %10.6f %10.6f %10.6f %10.6f\n",
